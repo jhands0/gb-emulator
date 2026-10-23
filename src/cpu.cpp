@@ -47,6 +47,16 @@ void cpu_noop()     //0x00
     core_advance_cpu_clocks(4);
 }
 
+void cpu_xor_a()    //0xAF
+{
+    cpu_registers.a = 0;
+    SET_FLAG_SUBTRACT(0);
+    SET_FLAG_CARRY(0);
+    SET_FLAG_HALF_CARRY(0);
+    SET_FLAG_ZERO(1);
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_jp_a16()   //0xC3
 {
     core_advance_cpu_clocks(4);

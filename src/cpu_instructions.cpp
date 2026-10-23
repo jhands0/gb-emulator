@@ -177,7 +177,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"XOR A, H", 0, nullptr},       //0xAC
     {"XOR A, L", 0, nullptr},       //0xAD
     {"XOR A, [HL]", 0, nullptr},    //0xAE
-    {"XOR A, A", 0, nullptr},       //0xAF
+    {"XOR A, A", 0, cpu_xor_a},       //0xAF
     {"OR A, B", 0, nullptr},        //0xB0
     {"OR A, C", 0, nullptr},        //0xB1
     {"OR A, D", 0, nullptr},        //0xB2

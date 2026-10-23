@@ -15,3 +15,12 @@
     reg_hi = memory_bus_read(cpu_registers.pc++);   \
     core_advance_cpu_clocks(4);                     \
 }
+
+#define cpu_routine_dec_8(reg8)                     \
+{                                                   \
+    SET_FLAG_SUBTRACT(1);                           \
+    SET_FLAG_HALF_CARRY((reg8 & 0xF) == 0x0);       \
+    reg8--;                                         \
+    SET_FLAG_ZERO(reg8 == 0);                       \
+    core_advance_cpu_clocks(4);                     \
+}

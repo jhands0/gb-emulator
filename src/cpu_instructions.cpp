@@ -7,7 +7,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD [BC], A", 0, nullptr},     //0x02
     {"INC BC", 0, nullptr},         //0x03
     {"INC B", 0, nullptr},          //0x04
-    {"DEC B", 0, nullptr},          //0x05
+    {"DEC B", 0, cpu_dec_b},          //0x05
     {"LD, B, n8", 1, cpu_ld_b_n8},      //0x06
     {"RLCA", 0, nullptr},           //0x07
     {"LD [a16], SP", 2, nullptr},   //0x08

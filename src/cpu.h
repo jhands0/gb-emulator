@@ -60,6 +60,8 @@ bool cpu_execute();
 
 void cpu_nop();         //0x00
 
+void cpu_dec_b();       //0x05
+
 void cpu_ld_b_n8();     //0x06
 
 void cpu_ld_c_n8();     //0x0E

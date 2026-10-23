@@ -1,6 +1,7 @@
 #include "cpu.h"
 #include "cpu_instructions.h"
 #include "cart.h"
+#include "emulator_core"
 #include <stdio.h>
 
 gb_cpu_registers cpu_registers;
@@ -39,4 +40,9 @@ bool cpu_execute()
     //Execute instruction
     ((cpu_execute_op)cpu_current_instruction_execute)();
     return true;
+}
+
+void cpu_noop()     //0x00
+{
+    core_advance_cpu_clocks(4);
 }

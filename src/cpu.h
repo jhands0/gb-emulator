@@ -58,8 +58,10 @@ void cpu_fetch();
 bool cpu_execute();
 
 
-void cpu_nop();     //0x00
+void cpu_nop();         //0x00
 
-void cpu_xor_a();   //0xAF
+void cpu_ld_hl_n16();   //0x21
 
-void cpu_jp_a16();  //0xC3
+void cpu_xor_a();       //0xAF
+
+void cpu_jp_a16();      //0xC3

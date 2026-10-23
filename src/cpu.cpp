@@ -1,5 +1,6 @@
 #include "cpu.h"
 #include "cpu_instructions.h"
+#include "cpu_routines.h"
 #include "memory_bus.h"
 #include "emulator_core"
 #include <stdio.h>
@@ -42,12 +43,17 @@ bool cpu_execute()
     return true;
 }
 
-void cpu_noop()     //0x00
+void cpu_noop()         //0x00
 {
     core_advance_cpu_clocks(4);
 }
 
-void cpu_xor_a()    //0xAF
+void cpu_ld_hl_n16()    //0x21
+{
+    cpu_routine_ld_16(cpu_registers.h, cpu_registers.l);
+}
+
+void cpu_xor_a()        //0xAF
 {
     cpu_registers.a = 0;
     SET_FLAG_SUBTRACT(0);
@@ -57,7 +63,7 @@ void cpu_xor_a()    //0xAF
     core_advance_cpu_clocks(4);
 }
 
-void cpu_jp_a16()   //0xC3
+void cpu_jp_a16()       //0xC3
 {
     core_advance_cpu_clocks(4);
     uint32_t temp = memory_bus_read(cpu_registers.pc++);

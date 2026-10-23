@@ -48,6 +48,16 @@ void cpu_noop()         //0x00
     core_advance_cpu_clocks(4);
 }
 
+void cpu_ld_b_n8()      //0x06
+{
+    cpu_routine_ld_8(cpu_registers.b);
+}
+
+void cpu_ld_c_n8()      //0x0E
+{
+    cpu_routine_ld_8(cpu_registers.c);
+}
+
 void cpu_ld_hl_n16()    //0x21
 {
     cpu_routine_ld_16(cpu_registers.h, cpu_registers.l);

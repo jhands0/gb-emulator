@@ -50,3 +50,5 @@ bool cpu_execute();
 
 
 void cpu_nop();     //0x00
+
+void cpu_jp_a16();  //0xC3

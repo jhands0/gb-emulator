@@ -1,6 +1,6 @@
 #include "cpu.h"
 #include "cpu_instructions.h"
-#include "cart.h"
+#include "memory_bus.h"
 #include "emulator_core"
 #include <stdio.h>
 
@@ -22,7 +22,7 @@ void cpu_reset()
 
 void cpu_fetch()
 {
-    cpu_current_op_code = cartridge_data[cpu_registers.pc++];
+    cpu_current_op_code = memory_bus_read(cpu_registers.pc++);
     const gb_cpu_instruction& instruction = instructions[cpu_current_op_code];
     cpu_current_instruction_execute = instruction.execute;
 }
@@ -60,10 +60,10 @@ void cpu_xor_a()    //0xAF
 void cpu_jp_a16()   //0xC3
 {
     core_advance_cpu_clocks(4);
-    uint32_t temp = cartridge_data[cpu_registers.pc++];
+    uint32_t temp = memory_bus_read(cpu_registers.pc++);
     cpu_registers.pc &= 0xFFFF; //Correct program counter in case of overflow
     core_advance_cpu_clocks(4);
-    temp |= ((uint32_t) cartridge_data[cpu_registers.pc++]) << 8;
+    temp |= ((uint32_t) memory_bus_read(cpu_registers.pc++)) << 8;
     cpu_registers.pc &= 0xFFFF;
     core_advance_cpu_clocks(4);
     cpu_registers.pc = temp;

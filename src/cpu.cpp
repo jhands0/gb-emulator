@@ -48,6 +48,11 @@ void cpu_noop()         //0x00
     core_advance_cpu_clocks(4);
 }
 
+void cpu_ld_bc_n16()    //0x01
+{
+    cpu_routine_ld_16(cpu_registers.b, cpu_registers.c);
+}
+
 void cpu_dec_b()        //0x05
 {
     cpu_routine_dec_8(cpu_registers.b);
@@ -61,6 +66,11 @@ void cpu_ld_b_n8()      //0x06
 void cpu_ld_c_n8()      //0x0E
 {
     cpu_routine_ld_8(cpu_registers.c);
+}
+
+void cpu_ld_de_n16()    //0x11
+{
+    cpu_routine_ld_16(cpu_registers.d, cpu_registers.e);
 }
 
 void cpu_ld_d_n8()      //0x16
@@ -86,6 +96,11 @@ void cpu_ld_h_n8()      //0x26
 void cpu_ld_l_n8()      //0x2E
 {
     cpu_routine_ld_8(cpu_registers.l);
+}
+
+void cpu_ld_sp_n16()    //0x31
+{
+    cpu_routine_ld_16(cpu_registers.s, cpu_registers.p);
 }
 
 void cpu_ld_a_n8()      //0x3E

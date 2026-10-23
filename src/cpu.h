@@ -59,11 +59,14 @@ bool cpu_execute();
 
 
 void cpu_nop();         //0x00
+void cpu_ld_bc_n16();   //0x01
 
 void cpu_dec_b();       //0x05
 void cpu_ld_b_n8();     //0x06
 
 void cpu_ld_c_n8();     //0x0E
+
+void cpu_ld_de_n16();   //0x11
 
 void cpu_ld_d_n8();     //0x16
 
@@ -74,6 +77,8 @@ void cpu_ld_hl_n16();   //0x21
 void cpu_ld_h_n8();     //0x26
 
 void cpu_ld_l_n8();     //0x2E
+
+void cpu_ld_sp_n16();   //0x31
 
 void cpu_ld_a_n8();     //0x3E
 

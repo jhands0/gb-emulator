@@ -24,3 +24,10 @@
     SET_FLAG_ZERO(reg8 == 0);                       \
     core_advance_cpu_clocks(4);                     \
 }
+
+#define cpu_routine_dec_16(reg16)                   \
+{                                                   \
+    core_advance_cpu_clocks(4);                     \
+    reg16 = (reg16 - 1);                            \
+    core_advance_cpu_clocks(4);                     \
+}

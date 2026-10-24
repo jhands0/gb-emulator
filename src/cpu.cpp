@@ -63,6 +63,11 @@ void cpu_ld_b_n8()      //0x06
     cpu_routine_ld_8(cpu_registers.b);
 }
 
+void cpu_dec_bc()       //0x0B
+{
+    cpu_routine_dec_16(cpu_registers.bc);
+}
+
 void cpu_dec_c()        //0x0D
 {
     cpu_routine_dec_8(cpu_registers.c);
@@ -86,6 +91,11 @@ void cpu_dec_d()        //0x15
 void cpu_ld_d_n8()      //0x16
 {
     cpu_routine_ld_8(cpu_registers.d);
+}
+
+void cpu_dec_de()       //0x1B
+{
+    cpu_routine_dec_16(cpu_registers.de);
 }
 
 void cpu_dec_e()        //0x1D
@@ -113,6 +123,11 @@ void cpu_ld_h_n8()      //0x26
     cpu_routine_ld_8(cpu_registers.h);
 }
 
+void cpu_dec_hl()       //0x2B
+{
+    cpu_routine_dec_16(cpu_registers.hl);
+}
+
 void cpu_dec_l()        //0x2D
 {
     cpu_routine_dec_8(cpu_registers.l);
@@ -126,6 +141,11 @@ void cpu_ld_l_n8()      //0x2E
 void cpu_ld_sp_n16()    //0x31
 {
     cpu_routine_ld_16(cpu_registers.s, cpu_registers.p);
+}
+
+void cpu_dec_sp()       //0x3B
+{
+    cpu_routine_dec_16(cpu_registers.sp);
 }
 
 void cpu_dec_a()        //0x3D

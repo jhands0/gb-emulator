@@ -120,6 +120,13 @@ void cpu_inc_a();       //0x3C
 void cpu_dex_a();       //0x3D
 void cpu_ld_a_n8();     //0x3E
 
+void cpu_add_a_b();     //0x80
+void cpu_add_a_c();     //0x81
+void cpu_add_a_d();     //0x82
+void cpu_add_a_e();     //0x83
+void cpu_add_a_h();     //0x84
+void cpu_add_a_l();     //0x85
+
 void cpu_xor_a();       //0xAF
 
 void cpu_jp_a16();      //0xC3

@@ -64,22 +64,28 @@ void cpu_ld_bc_n16();   //0x01
 void cpu_dec_b();       //0x05
 void cpu_ld_b_n8();     //0x06
 
+void cpu_dec_c();       //0x0D
 void cpu_ld_c_n8();     //0x0E
 
 void cpu_ld_de_n16();   //0x11
 
+void cpu_dec_d();       //0x15
 void cpu_ld_d_n8();     //0x16
 
+void cpu_dec_e();       //0x1D
 void cpu_ld_e_n8();     //0x1E
 
 void cpu_ld_hl_n16();   //0x21
 
+void cpu_dec_h();       //0x25
 void cpu_ld_h_n8();     //0x26
 
+void cpu_dec_l();       //0x2D
 void cpu_ld_l_n8();     //0x2E
 
 void cpu_ld_sp_n16();   //0x31
 
+void cpu_dex_a();       //0x3D
 void cpu_ld_a_n8();     //0x3E
 
 void cpu_xor_a();       //0xAF

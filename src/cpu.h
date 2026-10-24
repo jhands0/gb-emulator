@@ -134,6 +134,13 @@ void cpu_adc_a_e();     //0x8B
 void cpu_adc_a_h();     //0x8C
 void cpu_adc_a_l();     //0x8D
 
+void cpu_sub_a_b();     //0x90
+void cpu_sub_a_c();     //0x91
+void cpu_sub_a_d();     //0x92
+void cpu_sub_a_e();     //0x93
+void cpu_sub_a_h();     //0x94
+void cpu_sub_a_l();     //0x95
+
 void cpu_xor_a();       //0xAF
 
 void cpu_jp_a16();      //0xC3

@@ -70,3 +70,17 @@
     SET_FLAG_CARRY(temp > cpu_registers.a);                                 \
     core_advance_cpu_clocks(4);                                             \
 }
+
+#define cpu_routine_adc_a_8(reg8)                                           \
+{                                                                           \
+    SET_FLAG_SUBTRACT(0);													\
+	uint8_t carry = GET_FLAG_CARRY;											\
+	uint32_t temp = cpu_registers.a + reg8 + carry;							\
+	bool hc = (((cpu_registers.a & 0xF) + (reg8 & 0xF)) + carry) > 0xF;		\
+	SET_FLAG_HALF_CARRY(hc);												\
+	SET_FLAG_CARRY(temp > 0xFF);											\
+	temp &= 0xFF;															\
+	cpu_registers.a = temp;													\
+	SET_FLAG_ZERO(temp == 0);												\
+	core_advance_cpu_clocks(4);												\
+}

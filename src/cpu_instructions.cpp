@@ -186,12 +186,12 @@ const struct gb_cpu_instruction instructions[256] = {
     {"OR A, L", 0, cpu_or_a_l},        //0xB5
     {"OR A, [HL]", 0, nullptr},     //0xB6
     {"OR A, A", 0, nullptr},        //0xB7
-    {"CP A, B", 0, nullptr},        //0xB8
-    {"CP A, C", 0, nullptr},        //0xB9
-    {"CP A, D", 0, nullptr},        //0xBA
-    {"CP A, E", 0, nullptr},        //0xBB
-    {"CP A, H", 0, nullptr},        //0xBC
-    {"CP A, L", 0, nullptr},        //0xBD
+    {"CP A, B", 0, cpu_cp_a_b},        //0xB8
+    {"CP A, C", 0, cpu_cp_a_c},        //0xB9
+    {"CP A, D", 0, cpu_cp_a_d},        //0xBA
+    {"CP A, E", 0, cpu_cp_a_e},        //0xBB
+    {"CP A, H", 0, cpu_cp_a_h},        //0xBC
+    {"CP A, L", 0, cpu_cp_a_l},        //0xBD
     {"CP A, [HL]", 0, nullptr},     //0xBE
     {"CP A, A", 0, nullptr},        //0xBF
     {"RET NZ", 0, nullptr},         //0xC0

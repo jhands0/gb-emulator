@@ -201,7 +201,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"CALL NZ, a16", 2, nullptr},   //0xC4
     {"PUSH BC", 0, nullptr},        //0xC5
     {"ADD A, n8", 1, nullptr},      //0xC6
-    {"RST $00", 0, nullptr},        //0xC7
+    {"RST $00", 0, cpu_rst_00},        //0xC7
     {"RET Z", 0, nullptr},          //0xC8
     {"RET", 0, nullptr},            //0xC9
     {"JP Z, a16", 2, nullptr},      //0xCA
@@ -209,7 +209,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"CALL Z, a16", 2, nullptr},    //0xCC
     {"CALL a16", 2, nullptr},       //0xCD
     {"ADC A, n8", 1, nullptr},      //0xCE
-    {"RST $08", 0, nullptr},        //0xCF
+    {"RST $08", 0, cpu_rst_08},        //0xCF
     {"RET NC", 0, nullptr},         //0xD0
     {"POP DE", 0, nullptr},         //0xD1
     {"JP NC, a16", 2, nullptr},     //0xD2
@@ -217,7 +217,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"CALL NC, a16", 2, nullptr},   //0xD4
     {"PUSH DE", 0, nullptr},        //0xD5
     {"SUB A, n8", 1, nullptr},      //0xD6
-    {"RST $10", 0, nullptr},        //0xD7
+    {"RST $10", 0, cpu_rst_10},        //0xD7
     {"RET C", 0, nullptr},          //0xD8
     {"RETI", 0, nullptr},           //0xD9
     {"JP C, a16", 2, nullptr},      //0xDA
@@ -225,7 +225,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"CALL C, a16", 2, nullptr},    //0xDC
     {"???", 0, nullptr},            //0xDD
     {"SBC A, n8", 1, nullptr},      //0xDE
-    {"RST $18", 0, nullptr},        //0xDF
+    {"RST $18", 0, cpu_rst_18},        //0xDF
     {"LDH [a8], A", 1, nullptr},    //0xE0
     {"POP HL", 0, nullptr},         //0xE1
     {"LDH [C], A", 0, nullptr},     //0xE2
@@ -233,7 +233,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"???", 0, nullptr},            //0xE4
     {"PUSH HL", 0, nullptr},        //0xE5
     {"AND A, n8", 1, nullptr},      //0xE6
-    {"RST $20", 0, nullptr},        //0xE7
+    {"RST $20", 0, cpu_rst_20},        //0xE7
     {"ADD SP, e8", 1, nullptr},     //0xE8
     {"JP HL", 0, nullptr},          //0xE9
     {"LD [a16], A", 2, nullptr},    //0xEA
@@ -241,7 +241,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"???", 0, nullptr},            //0xEC
     {"???", 0, nullptr},            //0xED
     {"XOR A, n8", 1, nullptr},      //0xEE
-    {"RST $28", 0, nullptr},        //0xEF
+    {"RST $28", 0, cpu_rst_28},        //0xEF
     {"LDH A, [a8]", 1, nullptr},    //0xF0
     {"POP AF", 0, nullptr},         //0xF1
     {"LDH A, [C]", 0, nullptr},     //0xF2
@@ -249,7 +249,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"???", 0, nullptr},            //0xF4
     {"PUSH AF", 0, nullptr},        //0xF5
     {"OR A, n8", 1, nullptr},       //0xF6
-    {"RST $30", 0, nullptr},        //0xF7
+    {"RST $30", 0, cpu_rst_30},        //0xF7
     {"LD HL, SP + e8", 1, nullptr}, //0xF8
     {"LD SP, HL", 0, nullptr},      //0xF9
     {"LD A, [a16]", 2, nullptr},    //0xFA
@@ -257,5 +257,5 @@ const struct gb_cpu_instruction instructions[256] = {
     {"???", 0, nullptr},            //0xFC
     {"???", 0, nullptr},            //0xFD
     {"CP A, n8", 1, nullptr},       //0xFE
-    {"RST $38", 0, nullptr},        //0xFF
+    {"RST $38", 0, cpu_rst_38},        //0xFF
 }

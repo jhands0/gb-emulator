@@ -12,5 +12,6 @@
 - [ ] STOP Instruction
 - [ ] Interrupts
 - [ ] HALT Instruction
+- [ ] CB Instructions
 - [ ] Debug
 - [ ] Memory Bank Controllers

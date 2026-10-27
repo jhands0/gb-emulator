@@ -1,7 +1,7 @@
 # gb-emulator
 
 ## TODO
-- [ ] 8-Bit Register Load Permutations
+- [X] 8-Bit Register Load Permutations
 - [ ] Rotate Accumulator Instructions (RLCA, RLA, RRCA, RRA)
 - [ ] Memory
 - [ ] Restart / Call Instructions

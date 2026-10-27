@@ -174,3 +174,17 @@
     cpu_registers.pc = addr;                                        \
     core_advance_cpu_clocks(4);                                     \
 }
+
+#define cpu_routine_push_16(reg_hi, reg_lo)                         \
+{                                                                   \
+    core_advance_cpu_clocks(4);                                     \
+    cpu_registers.sp--;                                             \
+    cpu_registers.sp &= 0xFFFF;                                     \
+    core_advance_cpu_clocks(4);                                     \
+    memory_bus_write(cpu_registers.sp, reg_hi);                     \
+    core_advance_cpu_clocks(4);                                     \
+    cpu_registers.sp--;                                             \
+    cpu_registers.sp &= 0xFFFF;                                     \
+    memory_bus_write(cpu_registers.sp, reg_lo);                     \
+    core_advance_cpu_clocks(4);                                     \
+}

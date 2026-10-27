@@ -12,7 +12,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"RLCA", 0, cpu_rlca},           //0x07
     {"LD [a16], SP", 2, nullptr},   //0x08
     {"ADD HL, BC", 0, cpu_add_hl_bc},     //0x09
-    {"LD A, [BC]", 0, nullptr},     //0x0A
+    {"LD A, [BC]", 0, cpu_ld_a_bc},     //0x0A
     {"DEC BC", 0, cpu_dec_bc},         //0x0B
     {"INC C", 0, cpu_inc_c},          //0x0C
     {"DEC C", 0, cpu_dec_c},          //0x0D
@@ -28,7 +28,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"RLA", 0, cpu_rla},            //0x17
     {"JR e8", 1, nullptr},          //0x18
     {"ADD HL, DE", 0, cpu_add_hl_de},     //0x19
-    {"LD A, [DE]", 0, nullptr},     //0x1A
+    {"LD A, [DE]", 0, cpu_ld_a_de},     //0x1A
     {"DEC DE", 0, cpu_dec_de},         //0x1B
     {"INC E", 0, cpu_inc_e},          //0x1C
     {"DEC E", 0, cpu_dec_e},          //0x1D
@@ -72,7 +72,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD B, E", 0, cpu_ld_b_e},        //0x43
     {"LD B, H", 0, cpu_ld_b_h},        //0x44
     {"LD B, L", 0, cpu_ld_b_l},        //0x45
-    {"LD B, [HL]", 0, nullptr},     //0x46
+    {"LD B, [HL]", 0, cpu_ld_b_hl},     //0x46
     {"LD B, A", 0, cpu_ld_b_a},        //0x47
     {"LD C, B", 0, cpu_ld_c_b},        //0x48
     {"LD C, C", 0, cpu_ld_c_c},        //0x49
@@ -80,7 +80,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD C, E", 0, cpu_ld_c_e},        //0x4B
     {"LD C, H", 0, cpu_ld_c_h},        //0x4C
     {"LD C, L", 0, cpu_ld_c_l},        //0x4D
-    {"LD C, [HL]", 0, nullptr},     //0x4E
+    {"LD C, [HL]", 0, cpu_ld_c_hl},     //0x4E
     {"LD C, A", 0, cpu_ld_c_a},        //0x4F
     {"LD D, B", 0, cpu_ld_d_b},        //0x50
     {"LD D, C", 0, cpu_ld_d_c},        //0x51
@@ -88,7 +88,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD D, E", 0, cpu_ld_d_e},        //0x53
     {"LD D, H", 0, cpu_ld_d_h},        //0x54
     {"LD D, L", 0, cpu_ld_d_l},        //0x55
-    {"LD D, [HL]", 0, nullptr},     //0x56
+    {"LD D, [HL]", 0, cpu_ld_d_hl},     //0x56
     {"LD D, A", 0, cpu_ld_d_a},        //0x57
     {"LD E, B", 0, cpu_ld_e_b},        //0x58
     {"LD E, C", 0, cpu_ld_e_c},        //0x59
@@ -96,7 +96,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD E, E", 0, cpu_ld_e_e},        //0x5B
     {"LD E, H", 0, cpu_ld_e_h},        //0x5C
     {"LD E, L", 0, cpu_ld_e_l},        //0x5D
-    {"LD E, [HL]", 0, nullptr},     //0x5E
+    {"LD E, [HL]", 0, cpu_ld_e_hl},     //0x5E
     {"LD E, A", 0, cpu_ld_e_a},        //0x5F
     {"LD H, B", 0, cpu_ld_h_b},        //0x60
     {"LD H, C", 0, cpu_ld_h_c},        //0x61
@@ -104,7 +104,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD H, E", 0, cpu_ld_h_e},        //0x63
     {"LD H, H", 0, cpu_ld_h_h},        //0x64
     {"LD H, L", 0, cpu_ld_h_l},        //0x65
-    {"LD H, [HL]", 0, nullptr},     //0x66
+    {"LD H, [HL]", 0, cpu_ld_h_hl},     //0x66
     {"LD H, A", 0, cpu_ld_h_a},        //0x67
     {"LD L, B", 0, cpu_ld_l_b},        //0x68
     {"LD L, C", 0, cpu_ld_l_c},        //0x69
@@ -112,7 +112,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD L, E", 0, cpu_ld_l_e},        //0x6B
     {"LD L, H", 0, cpu_ld_l_h},        //0x6C
     {"LD L, L", 0, cpu_ld_l_l},        //0x6D
-    {"LD L, [HL]", 0, nullptr},     //0x6E
+    {"LD L, [HL]", 0, cpu_ld_l_hl},     //0x6E
     {"LD L, A", 0, cpu_ld_l_a},        //0x6F
     {"LD [HL], B", 0, cpu_ld_hl_b},     //0x70
     {"LD [HL], C", 0, cpu_ld_hl_c},     //0x71
@@ -128,7 +128,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD A, E", 0, cpu_ld_a_e},        //0x7B
     {"LD A, H", 0, cpu_ld_a_h},        //0x7C
     {"LD A, L", 0, cpu_ld_a_l},        //0x7D
-    {"LD A, [HL]", 0, nullptr},     //0x7E
+    {"LD A, [HL]", 0, cpu_ld_a_hl},     //0x7E
     {"LD A, A", 0, cpu_ld_a_a},        //0x7F
     {"ADD A, B", 0, cpu_add_a_b},       //0x80
     {"ADD A, C", 0, cpu_add_a_c},       //0x81

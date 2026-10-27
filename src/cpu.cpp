@@ -93,6 +93,11 @@ void cpu_add_hl_bc()    //0x09
     cpu_routine_add_hl_16(cpu_registers.bc);
 }
 
+void cpu_ld_a_bc()      //0x0A
+{
+    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.bc);
+}
+
 void cpu_dec_bc()       //0x0B
 {
     cpu_routine_dec_16(cpu_registers.bc);
@@ -167,6 +172,11 @@ void cpu_rla()          //0x17
 void cpu_add_hl_de()    //0x19
 {
     cpu_routine_add_hl_16(cpu_registers.de);
+}
+
+void cpu_ld_a_hl()      //0x1A
+{
+    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.hl);
 }
 
 void cpu_dec_de()       //0x1B
@@ -315,6 +325,11 @@ void cpu_ld_b_l()       //0x45
     cpu_registers.b = cpu_registers.l;
 }
 
+void cpu_ld_b_hl()      //0x46
+{
+    cpu_routine_ld_ptr_16(cpu_registers.b, cpu_registers.hl);
+}
+
 void cpu_ld_b_a()       //0x47
 {
     core_advance_cpu_clocks(4);
@@ -354,6 +369,11 @@ void cpu_ld_c_l()       //0x4D
 {
     core_advance_cpu_clocks(4);
     cpu_registers.c = cpu_registers.l;
+}
+
+void cpu_ld_c_hl()      //0x4E
+{
+    cpu_routine_ld_ptr_16(cpu_registers.c, cpu_registers.hl);
 }
 
 void cpu_ld_c_a()       //0x4F
@@ -397,6 +417,11 @@ void cpu_ld_d_l()       //0x55
     cpu_registers.d = cpu_registers.l;
 }
 
+void cpu_ld_d_hl()      //0x56
+{
+    cpu_routine_ld_ptr_16(cpu_registers.d, cpu_registers.hl);
+}
+
 void cpu_ld_d_a()       //0x57
 {
     core_advance_cpu_clocks(4);
@@ -436,6 +461,11 @@ void cpu_ld_e_l()       //0x5D
 {
     core_advance_cpu_clocks(4);
     cpu_registers.e = cpu_registers.l;
+}
+
+void cpu_ld_e_hl()      //0x5E
+{
+    cpu_routine_ld_ptr_16(cpu_registers.e, cpu_registers.hl);
 }
 
 void cpu_ld_e_a()       //0x5F
@@ -479,6 +509,11 @@ void cpu_ld_h_l()       //0x65
     cpu_registers.h = cpu_registers.l;
 }
 
+void cpu_ld_h_hl()      //0x66
+{
+    cpu_routine_ld_ptr_16(cpu_registers.h, cpu_registers.hl);
+}
+
 void cpu_ld_h_a()       //0x67
 {
     core_advance_cpu_clocks(4);
@@ -518,6 +553,11 @@ void cpu_ld_l_h()       //0x6C
 void cpu_ld_l_l()       //0x6D
 {
     core_advance_cpu_clocks(4);
+}
+
+void cpu_ld_l_hl()      //0x6E
+{
+    cpu_routine_ld_ptr_16(cpu_registers.l, cpu_registers.hl);
 }
 
 void cpu_ld_l_a()       //0x6F
@@ -595,6 +635,11 @@ void cpu_ld_a_l()       //0x7D
 {
     core_advance_cpu_clocks(4);
     cpu_registers.a = cpu_registers.l
+}
+
+void cpu_ld_a_hl()      //0x7E
+{
+    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.hl);
 }
 
 void cpu_ld_a_a()       //0x7F

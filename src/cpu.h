@@ -78,7 +78,7 @@ void cpu_ld_b_n8();     //0x06
 void cpu_rlca();        //0x07
 
 void cpu_add_hl_bc();   //0x09
-
+void cpu_ld_a_bc();     //0x0A
 void cpu_dec_bc();      //0x0B
 void cpu_inc_c();       //0x0C
 void cpu_dec_c();       //0x0D
@@ -94,7 +94,7 @@ void cpu_ld_d_n8();     //0x16
 void cpu_rla();         //0x17
 
 void cpu_add_hl_de();   //0x19
-
+void cpu_ld_a_de();     //0x1A
 void cpu_dec_de();      //0x1B
 void cpu_inc_e();       //0x1C
 void cpu_dec_e();       //0x1D
@@ -130,7 +130,7 @@ void cpu_ld_b_d();      //0x42
 void cpu_ld_b_e();      //0x43
 void cpu_ld_b_h();      //0x44
 void cpu_ld_b_l();      //0x45
-
+void cpu_ld_b_hl();     //0x46
 void cpu_ld_b_a();      //0x47
 void cpu_ld_c_b();      //0x48
 void cpu_ld_c_c();      //0x49
@@ -138,7 +138,7 @@ void cpu_ld_c_d();      //0x4A
 void cpu_ld_c_e();      //0x4B
 void cpu_ld_c_h();      //0x4C
 void cpu_ld_c_l();      //0x4D
-
+void cpu_ld_c_hl();     //0x4E
 void cpu_ld_c_a();      //0x4F
 void cpu_ld_d_b();      //0x50
 void cpu_ld_d_c();      //0x51
@@ -146,7 +146,7 @@ void cpu_ld_d_d();      //0x52
 void cpu_ld_d_e();      //0x53
 void cpu_ld_d_h();      //0x54
 void cpu_ld_d_l();      //0x55
-
+void cpu_ld_d_hl();     //0x56
 void cpu_ld_d_a();      //0x57
 void cpu_ld_e_b();      //0x58
 void cpu_ld_e_c();      //0x59
@@ -154,7 +154,7 @@ void cpu_ld_e_d();      //0x5A
 void cpu_ld_e_e();      //0x5B
 void cpu_ld_e_h();      //0x5C
 void cpu_ld_e_l();      //0x5D
-
+void cpu_ld_e_hl();     //0x5E
 void cpu_ld_e_a();      //0x5F
 void cpu_ld_h_b();      //0x60
 void cpu_ld_h_c();      //0x61
@@ -162,7 +162,7 @@ void cpu_ld_h_d();      //0x62
 void cpu_ld_h_e();      //0x63
 void cpu_ld_h_h();      //0x64
 void cpu_ld_h_l();      //0x65
-
+void cpu_ld_h_hl();     //0x66
 void cpu_ld_h_a();      //0x67
 void cpu_ld_l_b();      //0x68
 void cpu_ld_l_c();      //0x69
@@ -170,7 +170,7 @@ void cpu_ld_l_d();      //0x6A
 void cpu_ld_l_e();      //0x6B
 void cpu_ld_l_h();      //0x6C
 void cpu_ld_l_l();      //0x6D
-
+void cpu_ld_l_hl();     //0x6E
 void cpu_ld_l_a();      //0x6F
 void cpu_ld_hl_b();     //0x70
 void cpu_ld_hl_c();     //0x71
@@ -186,7 +186,7 @@ void cpu_ld_a_d();      //0x7A
 void cpu_ld_a_e();      //0x7B
 void cpu_ld_a_h();      //0x7C
 void cpu_ld_a_l();      //0x7D
-
+void cpu_ld_a_hl();     //0x7E
 void cpu_ld_a_a();      //0x7F
 void cpu_add_a_b();     //0x80
 void cpu_add_a_c();     //0x81

@@ -23,6 +23,12 @@
     core_advance_cpu_clocks(4);                     \
 }
 
+#define cpu_routine_ld_ptr_16(reg8, reg16)          \
+{                                                   \
+    core_advance_cpu_clocks(4);                     \
+    reg8 = memory_bus_read(reg16);                  \
+    core_advance_cpu_clocks(4);                     \
+}
 
 #define cpu_routine_inc_8(reg8)                     \
 {                                                   \

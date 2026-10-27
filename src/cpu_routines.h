@@ -16,6 +16,14 @@
     core_advance_cpu_clocks(4);                     \
 }
 
+#define cpu_routine_ld_ptr_8(reg16, reg8)           \
+{                                                   \
+    core_advance_cpu_clocks(4);                     \
+    memory_bus_write(reg16, reg8);                  \
+    core_advance_cpu_clocks(4);                     \
+}
+
+
 #define cpu_routine_inc_8(reg8)                     \
 {                                                   \
     SET_FLAG_SUBTRACT(0);                           \

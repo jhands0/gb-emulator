@@ -4,7 +4,7 @@
 const struct gb_cpu_instruction instructions[256] = {
     {"NOP", 0, cpu_noop},            //0x00
     {"LD BC, n16", 2, cpu_ld_bc_n16},     //0x01
-    {"LD [BC], A", 0, nullptr},     //0x02
+    {"LD [BC], A", 0, cpu_ld_bc_a},     //0x02
     {"INC BC", 0, cpu_inc_bc},         //0x03
     {"INC B", 0, cpu_inc_b},          //0x04
     {"DEC B", 0, cpu_dec_b},          //0x05
@@ -20,7 +20,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"RRCA", 0, cpu_rrca},           //0x0F
     {"STOP n8", 1, nullptr},        //0x10
     {"LD DE, n16", 2, cpu_ld_de_n16},     //0x11
-    {"LD [DE], A", 0, nullptr},     //0x12
+    {"LD [DE], A", 0, cpu_ld_de_a},     //0x12
     {"INC DE", 0, cpu_inc_de},         //0x13
     {"INC D", 0, cpu_inc_d},          //0x14
     {"DEC D", 0, cpu_dec_d},          //0x15
@@ -114,14 +114,14 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD L, L", 0, cpu_ld_l_l},        //0x6D
     {"LD L, [HL]", 0, nullptr},     //0x6E
     {"LD L, A", 0, cpu_ld_l_a},        //0x6F
-    {"LD [HL], B", 0, nullptr},     //0x70
-    {"LD [HL], C", 0, nullptr},     //0x71
-    {"LD [HL], D", 0, nullptr},     //0x72
-    {"LD [HL], E", 0, nullptr},     //0x73
-    {"LD [HL], H", 0, nullptr},     //0x74
-    {"LD [HL], L", 0, nullptr},     //0x75
+    {"LD [HL], B", 0, cpu_ld_hl_b},     //0x70
+    {"LD [HL], C", 0, cpu_ld_hl_c},     //0x71
+    {"LD [HL], D", 0, cpu_ld_hl_d},     //0x72
+    {"LD [HL], E", 0, cpu_ld_hl_e},     //0x73
+    {"LD [HL], H", 0, cpu_ld_hl_h},     //0x74
+    {"LD [HL], L", 0, cpu_ld_hl_l},     //0x75
     {"HALT", 0, nullptr},           //0x76
-    {"LD [HL], A", 0, nullptr},     //0x77
+    {"LD [HL], A", 0, cpu_ld_hl_a},     //0x77
     {"LD A, B", 0, cpu_ld_a_b},        //0x78
     {"LD A, C", 0, cpu_ld_a_c},        //0x79
     {"LD A, D", 0, cpu_ld_a_d},        //0x7A

@@ -53,6 +53,11 @@ void cpu_ld_bc_n16()    //0x01
     cpu_routine_ld_16(cpu_registers.b, cpu_registers.c);
 }
 
+void cpu_ld_bc_a()      //0x02
+{
+    cpu_routine_ld_ptr_8(cpu_registers.bc, cpu_registers.a);
+}
+
 void cpu_inc_bc()       //0x03
 {
     cpu_routine_inc_16(cpu_registers.bc);
@@ -121,6 +126,11 @@ void cpu_rrca()         //0x0F
 void cpu_ld_de_n16()    //0x11
 {
     cpu_routine_ld_16(cpu_registers.d, cpu_registers.e);
+}
+
+void cpu_ld_de_a()      //0x12
+{
+    cpu_routine_ld_ptr_8(cpu_registers.de, cpu_registers.a);
 }
 
 void cpu_inc_de()       //0x13
@@ -514,6 +524,41 @@ void cpu_ld_l_a()       //0x6F
 {
     core_advance_cpu_clocks(4);
     cpu_registers.l = cpu_registers.a;
+}
+
+void cpu_ld_hl_b()      //0x70
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.b)
+}
+
+void cpu_ld_hl_c()      //0x71
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.c)
+}
+
+void cpu_ld_hl_d()      //0x72
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.d)
+}
+
+void cpu_ld_hl_e()      //0x73
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.e)
+}
+
+void cpu_ld_hl_h()      //0x74
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.h)
+}
+
+void cpu_ld_hl_l()      //0x75
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.l)
+}
+
+void cpu_ld_hl_a()      //0x77
+{
+    cpu_routine_ld_ptr_8(cpu_registers.hl, cpu_registers.a)
 }
 
 void cpu_ld_a_b()       //0x78

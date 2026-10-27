@@ -7,7 +7,7 @@
 - [X] 8-Bit Indirect Load Instructions
 - [ ] Restart / Call Instructions
 - [ ] Jump / Jump Relative Instructions
-- [ ] Push / Pop 16-Bit Register Stack Instructions
+- [X] Push / Pop 16-Bit Register Stack Instructions
 - [ ] Accumulator Operations with Memory Values Instructions 
 - [ ] Timer
 - [ ] STOP Instruction

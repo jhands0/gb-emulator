@@ -175,6 +175,17 @@
     core_advance_cpu_clocks(4);                                     \
 }
 
+#define cpu_routine_pop_16(reg_hi, reg_lo)                          \
+{                                                                   \
+    core_advance_cpu_clocks(4);                                     \
+    reg_lo = memory_bus_read(cpu_registers.sp++);                   \
+    cpu_registers.sp &= 0xFFFF;                                     \
+    core_advance_cpu_clocks(4);                                     \
+    reg_hi = memory_bus_read(cpu_registers.sp++);                   \
+    cpu_registers.sp &= 0xFFFF;                                     \
+    core_advance_cpu_clocks(4);                                     \
+}
+
 #define cpu_routine_push_16(reg_hi, reg_lo)                         \
 {                                                                   \
     core_advance_cpu_clocks(4);                                     \

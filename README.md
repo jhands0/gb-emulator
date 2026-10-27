@@ -3,7 +3,7 @@
 ## TODO
 - [X] 8-Bit Register Load Permutations
 - [X] Rotate Accumulator Instructions (RLCA, RLA, RRCA, RRA)
-- [ ] Memory
+- [X] Memory
 - [ ] Restart / Call Instructions
 - [ ] Jump / Jump Relative Instructions
 - [ ] Push / Pop 16-Bit Register Stack Instructions

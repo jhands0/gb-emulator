@@ -907,6 +907,11 @@ void cpu_pop_bc()       //0xC1
     cpu_routine_pop_16(cpu_registers.b. cpu_registers.c);
 }
 
+void cpu_jp_nz_a16()    //0xC2
+{
+    cpu_routine_jp_conditional(GET_FLAG_ZERO == 0);
+}
+
 void cpu_jp_a16()       //0xC3
 {
     core_advance_cpu_clocks(4);
@@ -940,6 +945,11 @@ void cpu_ret_z()        //0xC8
     cpu_routine_ret_conditional(GET_FLAG_ZERO == 1);
 }
 
+void cpu_jp_z_a16()     //0xCA
+{
+    cpu_routine_jp_conditional(GET_FLAG_ZERO == 1);
+}
+
 void cpu_call_z_a16()   //0xCC
 {
     cpu_routine_call_conditional(GET_FLAG_ZERO == 1);
@@ -960,6 +970,11 @@ void cpu_pop_de()       //0xD1
     cpu_routine_pop_16(cpu_registers.d, cpu_registers.e);
 }
 
+void cpu_jp_nc_a16()    //0xD2
+{
+    cpu_routine_jp_conditional(GET_FLAG_CARRY == 0);
+}
+
 void cpu_call_nc_a16()  //0xD4
 {
     cpu_routine_call_conditional(GET_FLAG_CARRY == 0);
@@ -978,6 +993,11 @@ void cpu_rst_10()       //0xD7
 void cpu_ret_c()        //0xD8
 {
     cpu_routine_ret_conditional(GET_FLAG_CARRY == 1);
+}
+
+void cpu_jp_c_a16()     //0xDA
+{
+    cpu_routine_jp_conditional(GET_FLAG_CARRY == 1);
 }
 
 void cpu_call_c_a16()   //0xDC

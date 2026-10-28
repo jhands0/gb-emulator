@@ -198,7 +198,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"POP BC", 0, cpu_pop_bc},         //0xC1
     {"JP NZ, a16", 2, nullptr},     //0xC2
     {"JP a16", 2, cpu_jp_a16},         //0xC3
-    {"CALL NZ, a16", 2, nullptr},   //0xC4
+    {"CALL NZ, a16", 2, cpu_call_nz_a16},   //0xC4
     {"PUSH BC", 0, cpu_push_bc},        //0xC5
     {"ADD A, n8", 1, nullptr},      //0xC6
     {"RST $00", 0, cpu_rst_00},        //0xC7
@@ -206,7 +206,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"RET", 0, nullptr},            //0xC9
     {"JP Z, a16", 2, nullptr},      //0xCA
     {"PREFIX", 0, nullptr},         //0xCB
-    {"CALL Z, a16", 2, nullptr},    //0xCC
+    {"CALL Z, a16", 2, cpu_call_z_a16},    //0xCC
     {"CALL a16", 2, nullptr},       //0xCD
     {"ADC A, n8", 1, nullptr},      //0xCE
     {"RST $08", 0, cpu_rst_08},        //0xCF
@@ -214,7 +214,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"POP DE", 0, cpu_pop_de},         //0xD1
     {"JP NC, a16", 2, nullptr},     //0xD2
     {"???", 0, nullptr},            //0xD3
-    {"CALL NC, a16", 2, nullptr},   //0xD4
+    {"CALL NC, a16", 2, cpu_call_nc_a16},   //0xD4
     {"PUSH DE", 0, cpu_push_de},        //0xD5
     {"SUB A, n8", 1, nullptr},      //0xD6
     {"RST $10", 0, cpu_rst_10},        //0xD7
@@ -222,7 +222,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"RETI", 0, nullptr},           //0xD9
     {"JP C, a16", 2, nullptr},      //0xDA
     {"???", 0, nullptr},            //0xDB
-    {"CALL C, a16", 2, nullptr},    //0xDC
+    {"CALL C, a16", 2, cpu_call_c_a16},    //0xDC
     {"???", 0, nullptr},            //0xDD
     {"SBC A, n8", 1, nullptr},      //0xDE
     {"RST $18", 0, cpu_rst_18},        //0xDF

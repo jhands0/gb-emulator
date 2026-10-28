@@ -249,18 +249,23 @@ void cpu_cp_a_l();      //0xBD
 void cpu_pop_bc();      //0xC1
 
 void cpu_jp_a16();      //0xC3
-
+void cpu_call_nz_a16(); //0xC4
 void cpu_push_bc();     //0xC5
 
 void cpu_rst_00();      //0xC7
+
+void cpu_call_z_a16();  //0xCC
 
 void cpu_rst_08();      //0xCF
 
 void cpu_pop_de();      //0xD1
 
+void cpu_call_nc_a16(); //0xD4
 void cpu_push_de();     //0xD5
 
 void cpu_rst_10();      //0xD7
+
+void cpu_call_c_a16();  //0xDC
 
 void cpu_rst_18();      //0xDF
 

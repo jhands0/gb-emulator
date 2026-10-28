@@ -897,6 +897,11 @@ void cpu_cp_a_l()      //0xBD
     cpu_routine_cp_a_8(cpu_registers.l);
 }
 
+void cpu_ret_nz()       //0xC0
+{
+    cpu_routine_ret_conditional(GET_FLAG_ZERO == 0);
+}
+
 void cpu_pop_bc()       //0xC1
 {
     cpu_routine_pop_16(cpu_registers.b. cpu_registers.c);
@@ -930,6 +935,11 @@ void cpu_rst_00()       //0xC7
     cpu_routine_rst(0x00);
 }
 
+void cpu_ret_z()        //0xC8
+{
+    cpu_routine_ret_conditional(GET_FLAG_ZERO == 1);
+}
+
 void cpu_call_z_a16()   //0xCC
 {
     cpu_routine_call_conditional(GET_FLAG_ZERO == 1);
@@ -938,6 +948,11 @@ void cpu_call_z_a16()   //0xCC
 void cpu_rst_08()       //0xCF
 {
     cpu_routine_rst(0x08);
+}
+
+void cpu_ret_nc()       //0xD0
+{
+    cpu_routine_ret_conditional(GET_FLAG_CARRY == 0);
 }
 
 void cpu_pop_de()       //0xD1
@@ -958,6 +973,11 @@ void cpu_push_de()      //0xD5
 void cpu_rst_10()       //0xD7
 {
     cpu_routine_rst(0x10);
+}
+
+void cpu_ret_c()        //0xD8
+{
+    cpu_routine_ret_conditional(GET_FLAG_CARRY == 1);
 }
 
 void cpu_call_c_a16()   //0xDC

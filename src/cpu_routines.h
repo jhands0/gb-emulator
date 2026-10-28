@@ -249,6 +249,23 @@
     }                                                                   \
 }
 
+#define cpu_routine_jr_conditional(cond)                                    \
+{                                                                           \
+    core_advance_cpu_clocks(4);                                             \
+    if (cond)                                                               \
+    {                                                                       \
+        uint32_t temp = memory_bus_read(cpu_registers.pc++);                \
+        core_advance_cpu_clocks(4);                                         \
+        cpu_registers.pc = (cpu_registers.pc + (uint8_t)temp) & 0xFFFF;     \
+        core_advance_cpu_clocks(4);                                         \
+    }                                                                       \
+    else                                                                    \
+    {                                                                       \
+        cpu_registers.pc++;                                                 \
+        core_advance_cpu_clocks(4);                                         \
+    }                                                                       \
+}
+
 #define cpu_routine_pop_16(reg_hi, reg_lo)                          \
 {                                                                   \
     core_advance_cpu_clocks(4);                                     \

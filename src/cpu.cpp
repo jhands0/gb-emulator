@@ -210,6 +210,11 @@ void cpu_rra()          //0x1F
     cpu_registers.a = (cpu_registers.a >> 1) | (temp << 7);
 }
 
+void cpu_jr_nz_e8()     //0x20
+{
+    cpu_routine_jr_conditional(GET_FLAG_ZERO == 0);
+}
+
 void cpu_ld_hl_n16()    //0x21
 {
     cpu_routine_ld_16(cpu_registers.h, cpu_registers.l);
@@ -235,6 +240,11 @@ void cpu_ld_h_n8()      //0x26
     cpu_routine_ld_8(cpu_registers.h);
 }
 
+void cpu_jr_z_e8()      //0x28
+{
+    cpu_routine_jr_conditional(GET_FLAG_ZERO == 1);
+}
+
 void cpu_dec_hl()       //0x2B
 {
     cpu_routine_dec_16(cpu_registers.hl);
@@ -255,6 +265,11 @@ void cpu_ld_l_n8()      //0x2E
     cpu_routine_ld_8(cpu_registers.l);
 }
 
+void cpu_jr_nc_e8()     //0x30
+{
+    cpu_routine_jr_conditional(GET_FLAG_CARRY == 0);
+}
+
 void cpu_ld_sp_n16()    //0x31
 {
     cpu_routine_ld_16(cpu_registers.s, cpu_registers.p);
@@ -263,6 +278,11 @@ void cpu_ld_sp_n16()    //0x31
 void cpu_inc_sp()       //0x33
 {
     cpu_routine_inc_16(cpu_registers.sp);
+}
+
+void cpu_jr_c_e8()      //0x38
+{
+    cpu_routine_jr_conditional(GET_FLAG_CARRY == 1);
 }
 
 void cpu_add_hl_sp()    //0x39

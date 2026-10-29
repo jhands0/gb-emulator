@@ -88,6 +88,19 @@ void cpu_rlca()         //0x07
     cpu_registers.a = (cpu_registers.a << 1) | GET_FLAG_CARRY;
 }
 
+void cpu_ld_a16_sp()    //0x08
+{
+    core_advance_cpu_clocks(4);
+    uint16_t temp = memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    temp |= ((uint16_t)memory_bus_read(cpu_registers.pc++)) << 8;
+    core_advance_cpu_clocks(4);
+    memory_bus_write(temp++, (cpu_registers.sp & 0xFF));
+    core_advance_cpu_clocks(4);
+    memory_bus_write(temp, ((cpu_registers.sp & 0xFF00) >> 8));
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_add_hl_bc()    //0x09
 {
     cpu_routine_add_hl_16(cpu_registers.bc);

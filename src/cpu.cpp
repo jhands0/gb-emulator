@@ -182,6 +182,15 @@ void cpu_rla()          //0x17
     cpu_registers.a = (cpu_registers.a << 1) | temp;
 }
 
+void cpu_jr_e8()        //0x18
+{
+    core_advance_cpu_clocks(4);
+    uint8_t temp = memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    cpu_registers.pc = (cpu_registers.pc + (int8_t)temp) & 0xFFFF;
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_add_hl_de()    //0x19
 {
     cpu_routine_add_hl_16(cpu_registers.de);

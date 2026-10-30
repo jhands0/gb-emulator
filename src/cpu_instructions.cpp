@@ -26,7 +26,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"DEC D", 0, cpu_dec_d},          //0x15
     {"LD D, n8", 1, cpu_ld_d_n8},       //0x16
     {"RLA", 0, cpu_rla},            //0x17
-    {"JR e8", 1, nullptr},          //0x18
+    {"JR e8", 1, cpu_jr_e8},          //0x18
     {"ADD HL, DE", 0, cpu_add_hl_de},     //0x19
     {"LD A, [DE]", 0, cpu_ld_a_de},     //0x1A
     {"DEC DE", 0, cpu_dec_de},         //0x1B

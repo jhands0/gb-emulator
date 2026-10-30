@@ -92,7 +92,7 @@ void cpu_inc_d();       //0x14
 void cpu_dec_d();       //0x15
 void cpu_ld_d_n8();     //0x16
 void cpu_rla();         //0x17
-
+void cpu_jr_e8();       //0x18
 void cpu_add_hl_de();   //0x19
 void cpu_ld_a_de();     //0x1A
 void cpu_dec_de();      //0x1B

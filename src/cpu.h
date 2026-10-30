@@ -296,6 +296,8 @@ void cpu_push_hl();     //0xE5
 
 void cpu_rst_20();      //0xE7
 
+void cpu_jp_hl();       //0xE9
+
 void cpu_rst_28();      //0xEF
 
 void cpu_pop_af();      //0xF1

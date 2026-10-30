@@ -1319,6 +1319,12 @@ void cpu_rst_20()       //0xE7
     cpu_routine_rst(0x20);
 }
 
+void cpu_jp_hl()        //0xE9
+{
+    core_advance_cpu_clocks(4);
+    cpu_registers.pc = cpu_registers.hl;
+}
+
 void cpu_rst_28()       //0xEF
 {
     cpu_routine_rst(0x28);

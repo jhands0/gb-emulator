@@ -235,7 +235,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"AND A, n8", 1, nullptr},      //0xE6
     {"RST $20", 0, cpu_rst_20},        //0xE7
     {"ADD SP, e8", 1, nullptr},     //0xE8
-    {"JP HL", 0, nullptr},          //0xE9
+    {"JP HL", 0, cpu_jp_hl},          //0xE9
     {"LD [a16], A", 2, nullptr},    //0xEA
     {"???", 0, nullptr},            //0xEB
     {"???", 0, nullptr},            //0xEC

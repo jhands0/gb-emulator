@@ -9,7 +9,7 @@
 - [ ] Return Instructions
 - [X] Jump / Jump Relative Instructions
 - [X] Push / Pop 16-Bit Register Stack Instructions
-- [ ] Accumulator Operations with Memory Values Instructions 
+- [X] Accumulator Operations with Memory Values Instructions 
 - [ ] Timer
 - [ ] STOP Instruction
 - [ ] Interrupts

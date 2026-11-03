@@ -2,13 +2,15 @@
 #include "cpu_instructions.h"
 #include "cpu_routines.h"
 #include "memory_bus.h"
-#include "emulator_core"
+#include "emulator_core.h"
+#include "timer.h"
 #include <stdio.h>
 
 gb_cpu_registers cpu_registers;
 uint8_t cpu_current_op_code = 0;
 uint32_t cpu_instruction_counter = 0;
 void *cpu_current_instruction_execute = nullptr;
+uint8_t cpu_halt_count = 0; // 0 = not halted, 1 = halt instruction, 2 = stop instruction
 
 void cpu_reset()
 {
@@ -139,6 +141,18 @@ void cpu_rrca()         //0x0F
     SET_FLAG_HALF_CARRY(0);
     SET_FLAG_CARRY((cpu_registers.a & 0x01) != 0);
     cpu_registers.a = (cpu_registers.a >> 1) | (GET_FLAG_CARRY << 7);
+}
+
+void cpu_stop()         //0x10
+{
+    core_advance_cpu_clocks(4);
+    if (memory_bus_read(cpu_registers.pc++) != 0)
+    {
+        printf("CPU - Corrupted STOP at PC: %04X, should have operand 0x00\n", cpu_registers.pc);
+    }
+    core_advance_cpu_clocks(4);
+    timer_on_div_write(0);
+    cpu_halt_count = 2;
 }
 
 void cpu_ld_de_n16()    //0x11

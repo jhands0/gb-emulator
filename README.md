@@ -10,7 +10,7 @@
 - [X] Push / Pop 16-Bit Register Stack Instructions
 - [X] Accumulator Operations with Memory Values Instructions 
 - [X] Timer
-- [ ] STOP Instruction
+- [X] STOP Instruction
 - [ ] Interrupts
 - [ ] HALT Instruction
 - [ ] CB Instructions

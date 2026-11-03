@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#define CHECK_BIT(number, bit)  ((number >> bit) & 1U)
+
 constexpr uint32_t MEMORY_SIZE = 64 * 1024
 
 extern uint8_t memory[MEMORY_SIZE];

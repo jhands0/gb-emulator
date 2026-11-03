@@ -11,7 +11,7 @@
 - [X] Accumulator Operations with Memory Values Instructions 
 - [X] Timer
 - [X] STOP Instruction
-- [ ] Interrupts
+- [X] Interrupts
 - [ ] HALT Instruction
 - [ ] CB Instructions
 - [ ] Debug

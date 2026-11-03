@@ -1,4 +1,5 @@
 #include "timer.h"
+#include "interrupts.h"
 #include "memory_bus.h"
 
 extern cpu_halt_count;
@@ -68,7 +69,7 @@ void timer_advance_clocks(const uint8_t cycles)
             timer_interrupt_delay--;
             if (timer_interrupt_delay == 0)
             {
-                //Raise interrupt flag
+                interrupt_raise_flag(INTERRUPT_FLAG_TIMER);
                 break;
             }
         }

@@ -219,7 +219,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"SUB A, n8", 1, cpu_sub_a_n8},      //0xD6
     {"RST $10", 0, cpu_rst_10},        //0xD7
     {"RET C", 0, cpu_ret_c},          //0xD8
-    {"RETI", 0, nullptr},           //0xD9
+    {"RETI", 0, cpu_reti},           //0xD9
     {"JP C, a16", 2, cpu_jp_c_a16},      //0xDA
     {"???", 0, nullptr},            //0xDB
     {"CALL C, a16", 2, cpu_call_c_a16},    //0xDC

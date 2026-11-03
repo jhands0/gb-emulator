@@ -1410,6 +1410,20 @@ void cpu_ret_c()        //0xD8
     cpu_routine_ret_conditional(GET_FLAG_CARRY == 1);
 }
 
+void cpu_reti()         //0xD9
+{
+    core_advance_cpu_clocks(4);
+    uint32_t temp = memory_bus_read(cpu_registers.sp++);
+    cpu_registers.sp &= 0xFFFF;
+    core_advance_cpu_clocks(4);
+    temp |= ((uint32_t)memory_bus_read(cpu_registers.sp++)) << 8;
+    cpu_registers.cp &= 0xFFFF;
+    core_advance_cpu_clocks(4);
+    cpu_registers.pc = temp;
+    core_advance_cpu_clocks(4);
+    interrupt_master_enable = true;
+}
+
 void cpu_jp_c_a16()     //0xDA
 {
     cpu_routine_jp_conditional(GET_FLAG_CARRY == 1);

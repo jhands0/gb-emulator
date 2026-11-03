@@ -285,7 +285,7 @@ void cpu_push_de();     //0xD5
 void cpu_sub_a_n8();    //0xD6
 void cpu_rst_10();      //0xD7
 void cpu_ret_c();       //0xD8
-
+void cpu_reti();        //0xD9
 void cpu_jp_c_a16();   //0xDA
 
 void cpu_call_c_a16();  //0xDC

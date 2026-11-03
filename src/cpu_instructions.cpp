@@ -203,11 +203,11 @@ const struct gb_cpu_instruction instructions[256] = {
     {"ADD A, n8", 1, cpu_add_a_n8},      //0xC6
     {"RST $00", 0, cpu_rst_00},        //0xC7
     {"RET Z", 0, cpu_ret_z},          //0xC8
-    {"RET", 0, nullptr},            //0xC9
+    {"RET", 0, cpu_ret},            //0xC9
     {"JP Z, a16", 2, cpu_jp_z_a16},      //0xCA
     {"PREFIX", 0, nullptr},         //0xCB
     {"CALL Z, a16", 2, cpu_call_z_a16},    //0xCC
-    {"CALL a16", 2, nullptr},       //0xCD
+    {"CALL a16", 2, cpu_call_a16},       //0xCD
     {"ADC A, n8", 1, cpu_adc_a_n8},      //0xCE
     {"RST $08", 0, cpu_rst_08},        //0xCF
     {"RET NC", 0, cpu_ret_nc},         //0xD0

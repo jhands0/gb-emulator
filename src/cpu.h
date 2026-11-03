@@ -269,11 +269,11 @@ void cpu_push_bc();     //0xC5
 void cpu_add_a_n8();    //0xC6
 void cpu_rst_00();      //0xC7
 void cpu_ret_z();       //0xC8
-
+void cpu_ret();         //0xC9
 void cpu_jp_z_a16();    //0xCA
 
 void cpu_call_z_a16();  //0xCC
-
+void cpu_call_a16();    //0xCD
 void cpu_adc_a_n8();    //0xCE
 void cpu_rst_08();      //0xCF
 void cpu_ret_nc();      //0xD0

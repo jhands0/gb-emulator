@@ -1252,6 +1252,17 @@ void cpu_ret_z()        //0xC8
     cpu_routine_ret_conditional(GET_FLAG_ZERO == 1);
 }
 
+void cpu_ret()          //0xC9
+{
+    core_advance_cpu_clocks(4);
+    uint16_t temp = memory_bus_read(cpu_registers.sp++);
+    core_advance_cpu_clocks(4);
+    temp |= ((uint16_t)memory_bus_read(cpu_registers.sp++)) << 8;
+    core_advance_cpu_clocks(4);
+    cpu_registers.pc = temp;
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_jp_z_a16()     //0xCA
 {
     cpu_routine_jp_conditional(GET_FLAG_ZERO == 1);
@@ -1260,6 +1271,25 @@ void cpu_jp_z_a16()     //0xCA
 void cpu_call_z_a16()   //0xCC
 {
     cpu_routine_call_conditional(GET_FLAG_ZERO == 1);
+}
+
+void cpu_call_a16()     //0xCD
+{
+    core_advance_cpu_clocks(4);
+    uint32_t temp = memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    temp |= ((uint32_t)memory_bus_read(cpu_registers.pc++)) << 8;
+    core_advance_cpu_clocks(4);
+    cpu_registers.sp--;
+    core_advance_cpu_clocks(4);
+    const uint8_t pchi = (cpu_registers.pc & 0xFF00) >> 8;
+    memory_bus_write(cpu_registers.sp, pchi);
+    core_advance_cpu_clocks(4);
+    cpu_registers.sp--;
+    core_advance_cpu_clocks(4);
+    const uint8_t pclo = (cpu_registers.pc & 0xFF);
+    memory_bus_write(cpu_registers.sp, pclo);
+    cpu_registers.pc = temp;
 }
 
 void cpu_adc_a_n8()     //0xCE

@@ -12,7 +12,7 @@
 - [X] Timer
 - [X] STOP Instruction
 - [X] Interrupts
-- [ ] HALT Instruction
+- [X] HALT Instruction
 - [ ] CB Instructions
 - [ ] Debug
 - [ ] Memory Bank Controllers

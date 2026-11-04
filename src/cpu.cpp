@@ -380,6 +380,14 @@ void cpu_ld_l_n8()      //0x2E
     cpu_routine_ld_8(cpu_registers.l);
 }
 
+void cpu_cpl()          //0x2F
+{
+    core_advance_cpu_clocks(4);
+    SET_FLAG_SUBTRACT(1);
+    SET_FLAG_HALF_CARRY(1);
+    cpu_registers.a = ~cpu_registers.a;
+}
+
 void cpu_jr_nc_e8()     //0x30
 {
     cpu_routine_jr_conditional(GET_FLAG_CARRY == 0);

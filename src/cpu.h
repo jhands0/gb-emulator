@@ -116,7 +116,7 @@ void cpu_dec_hl();      //0x2B
 void cpu_inc_l();       //0x2C
 void cpu_dec_l();       //0x2D
 void cpu_ld_l_n8();     //0x2E
-
+void cpu_cpl();         //0x2F
 void cpu_jr_nc_e8();    //0x30
 void cpu_ld_sp_n16();   //0x31
 void cpu_ldd_hl_a();    //0x32

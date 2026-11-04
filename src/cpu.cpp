@@ -492,6 +492,14 @@ void cpu_ld_a_n8()      //0x3E
     cpu_routine_ld_8(cpu_registers.a);
 }
 
+void cpu_ccf()          //0x3F
+{
+    core_advance_cpu_clocks(4);
+    SET_FLAG_CARRY(!GET_FLAG_CARRY);
+    SET_FLAG_SUBTRACT(0);
+    SET_FLAG_HALF_CARRY(0);
+}
+
 void cpu_ld_b_b()       //0x40
 {
     core_advance_cpu_clocks(4);

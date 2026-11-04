@@ -234,7 +234,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"PUSH HL", 0, cpu_push_hl},        //0xE5
     {"AND A, n8", 1, cpu_and_a_n8},      //0xE6
     {"RST $20", 0, cpu_rst_20},        //0xE7
-    {"ADD SP, e8", 1, nullptr},     //0xE8
+    {"ADD SP, e8", 1, cpu_add_sp_e8},     //0xE8
     {"JP HL", 0, cpu_jp_hl},          //0xE9
     {"LD [a16], A", 2, cpu_ld_a16_a},    //0xEA
     {"???", 0, nullptr},            //0xEB
@@ -250,8 +250,8 @@ const struct gb_cpu_instruction instructions[256] = {
     {"PUSH AF", 0, cpu_push_af},        //0xF5
     {"OR A, n8", 1, cpu_or_a_n8},       //0xF6
     {"RST $30", 0, cpu_rst_30},        //0xF7
-    {"LD HL, SP + e8", 1, nullptr}, //0xF8
-    {"LD SP, HL", 0, nullptr},      //0xF9
+    {"LD HL, SP + e8", 1, cpu_ld_hl_sp_e8}, //0xF8
+    {"LD SP, HL", 0, cpu_ld_sp_hl},      //0xF9
     {"LD A, [a16]", 2, cpu_ld_a_a16},    //0xFA
     {"EI", 0, nullptr},             //0xFB
     {"???", 0, nullptr},            //0xFC

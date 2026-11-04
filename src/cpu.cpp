@@ -1494,6 +1494,20 @@ void cpu_rst_20()       //0xE7
     cpu_routine_rst(0x20);
 }
 
+void cpu_add_sp_e8()    //0xE8
+{
+    core_advance_cpu_clocks(4);
+    int8_t temp = (int8_t)memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    SET_FLAG_ZERO(0);
+    SET_FLAG_SUBTRACT(0);
+    SET_FLAG_CARRY(((cpu_registers.sp & 0x00FF) + (temp & 0x00FF)) > 0x00FF);
+    SET_FLAG_HALF_CARRY(((cpu_registers.sp & 0x000F) + (temp & 0x000F)) > 0x000F);
+    core_advance_cpu_clocks(4);
+    cpu_registers.sp = (cpu_registers.sp + temp);
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_jp_hl()        //0xE9
 {
     core_advance_cpu_clocks(4);
@@ -1569,6 +1583,28 @@ void cpu_or_a_n8()      //0xF6
 void cpu_rst_30()       //0xF7
 {
     cpu_routine_rst(0x30);
+}
+
+void cpu_ld_hl_sp_e8()  //0xF8
+{
+    core_advance_cpu_clocks(4);
+    int8_t temp = (int8_t)memory_bus_read(cpu_registers.pc++);
+    cpu_registers.pc &= 0xFFFF;
+    core_advance_cpu_clocks(4);
+    int16_t res = (int16_t)cpu_registers.sp + temp;
+    core_advance_cpu_clocks(4);
+    cpu_registers.hl = res & 0xFFFF;
+    SET_FLAG_ZERO(0);
+    SET_FLAG_SUBTRACT(0);
+    SET_FLAG_HALF_CARRY(((cpu_registers.sp & 0x000F) + (temp & 0x000F)) > 0x000F);
+    SET_FLAG_CARRY(((cpu_registers.sp & 0x00FF) + (temp & 0x00FF)) > 0x00FF);
+}
+
+void cpu_ld_sp_hl()     //0xF9
+{
+    core_advance_cpu_clocks(4);
+    cpu_registers.sp = cpu_registers.hl;
+    core_advance_cpu_clocks(4);
 }
 
 void cpu_ld_a_a16()     //0xFA

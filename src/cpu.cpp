@@ -1417,7 +1417,7 @@ void cpu_reti()         //0xD9
     cpu_registers.sp &= 0xFFFF;
     core_advance_cpu_clocks(4);
     temp |= ((uint32_t)memory_bus_read(cpu_registers.sp++)) << 8;
-    cpu_registers.cp &= 0xFFFF;
+    cpu_registers.sp &= 0xFFFF;
     core_advance_cpu_clocks(4);
     cpu_registers.pc = temp;
     core_advance_cpu_clocks(4);

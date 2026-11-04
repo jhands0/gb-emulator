@@ -1452,9 +1452,25 @@ void cpu_rst_18()       //0xDF
     cpu_routine_rst(0x18);
 }
 
+void cpu_ldh_a8_a()     //0xE0
+{
+    core_advance_cpu_clocks(4);
+    uint32_t temp = 0xFF00 + (uint32_t)memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    memory_bus_write(temp, cpu_registers.a);
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_pop_hl()       //0xE1
 {
     cpu_routine_pop_16(cpu_registers.h, cpu_registers.l);
+}
+
+void cpu_ldh_c_a()      //0xE2
+{
+    core_advance_cpu_clocks(4);
+    memory_bus_write(0xFF00 + (uint32_t)cpu_registers.c, cpu_registers.a);
+    core_advance_cpu_clocks(4);
 }
 
 void cpu_push_hl()      //0xE5
@@ -1484,6 +1500,19 @@ void cpu_jp_hl()        //0xE9
     cpu_registers.pc = cpu_registers.hl;
 }
 
+void cpu_ld_a16_a()     //0xEA
+{
+    core_advance_cpu_clocks(4);
+    uint32_t temp = memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    cpu_registers.pc &= 0xFFFF;
+    temp |= ((uint32_t)memory_bus_read(cpu_registers.pc++)) << 8;
+    core_advance_cpu_clocks(4);
+    cpu_registers.pc &= 0xFFFF;
+    core_advance_cpu_clocks(4);
+    memory_bus_write(temp, cpu_registers.a);
+}
+
 void cpu_xor_a_n8()     //0xEE
 {
     core_advance_cpu_clocks(4);
@@ -1500,9 +1529,25 @@ void cpu_rst_28()       //0xEF
     cpu_routine_rst(0x28);
 }
 
+void cpu_ldh_a_a8()     //0xF0
+{
+    core_advance_cpu_clocks(4);
+    uint32_t temp = 0xFF00 + (uint32_t)memory_bus_read(cpu_registers.pc++);
+    core_advance_cpu_clocks(4);
+    cpu_registers.a = memory_bus_read(temp);
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_pop_af()       //0xF1
 {
     cpu_routine_pop_16(cpu_registers.a, cpu_registers.f);
+}
+
+void cpu_ldh_a_c()      //0xF2
+{
+    core_advance_cpu_clocks(4);
+    cpu_registers.a = memory_bus_read(0xFF00 + cpu_registers.c);
+    core_advance_cpu_clocks(4);
 }
 
 void cpu_push_af()      //0xF5
@@ -1524,6 +1569,19 @@ void cpu_or_a_n8()      //0xF6
 void cpu_rst_30()       //0xF7
 {
     cpu_routine_rst(0x30);
+}
+
+void cpu_ld_a_a16()     //0xFA
+{
+    core_advance_cpu_clocks(4);
+    uint32_t temp = memory_bus_read(cpu_registers.pc++);
+    cpu_registers.pc &= 0xFFFF;
+    core_advance_cpu_clocks(4);
+    temp |= ((uint32_t)memory_bus_read(cpu_registers.pc++)) << 8;
+    cpu_registers.pc &= 0xFFFF;
+    core_advance_cpu_clocks(4);
+    cpu_registers.a = memory_bus_read(temp);
+    core_advance_cpu_clocks(4);
 }
 
 void cpu_cp_a_n8()      //0xFE

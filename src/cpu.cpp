@@ -446,6 +446,14 @@ void cpu_ld_hl_n8()     //0x36
     core_advance_cpu_clocks(4);
 }
 
+void cpu_scf()          //0x37
+{
+    SET_FLAG_SUBTRACT(0);
+    SET_FLAG_HALF_CARRY(0);
+    SET_FLAG_CARRY(1);
+    core_advance_cpu_clocks(4);
+}
+
 void cpu_jr_c_e8()      //0x38
 {
     cpu_routine_jr_conditional(GET_FLAG_CARRY == 1);

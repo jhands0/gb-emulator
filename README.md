@@ -13,6 +13,7 @@
 - [X] STOP Instruction
 - [X] Interrupts
 - [X] HALT Instruction
+- [ ] Remaining Instructions
 - [ ] CB Instructions
 - [ ] Debug
 - [ ] Memory Bank Controllers

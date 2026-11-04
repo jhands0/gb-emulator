@@ -108,7 +108,7 @@ void cpu_inc_hl();      //0x23
 void cpu_inc_h();       //0x24
 void cpu_dec_h();       //0x25
 void cpu_ld_h_n8();     //0x26
-
+void cpu_daa();         //0x27
 void cpu_jr_z_e8();     //0x28
 void cpu_add_hl_hl();   //0x29
 void cpu_ldi_a_hl();    //0x2A

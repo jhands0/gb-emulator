@@ -307,6 +307,36 @@ void cpu_ld_h_n8()      //0x26
     cpu_routine_ld_8(cpu_registers.h);
 }
 
+void cpu_daa()          //0x27
+{
+    core_advance_cpu_clocks(4);
+    if (!GET_FLAG_SUBTRACT)
+    {
+        if (GET_FLAG_CARRY || cpu_registers.a > 0x99)
+        {
+            cpu_registers.a += 0x60;
+            SET_FLAG_CARRY(1);
+        }
+        if (GET_FLAG_HALF_CARRY || (cpu_registers.a & 0x0F) > 0x09)
+        {
+            cpu_registers.a += 0x6;
+        }
+    }
+    else
+    {
+        if (GET_FLAG_CARRY)
+        {
+            cpu_registers.a -= 0x60;
+        }
+        if (GET_FLAG_HALF_CARRY)
+        {
+            cpu_registers.a -= 0x6;
+        }
+    }
+    SET_FLAG_ZERO(cpu_registers.a == 0);
+    SET_FLAG_HALF_CARRY(0);
+}
+
 void cpu_jr_z_e8()      //0x28
 {
     cpu_routine_jr_conditional(GET_FLAG_ZERO == 1);

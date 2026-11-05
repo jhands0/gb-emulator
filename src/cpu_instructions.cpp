@@ -245,7 +245,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LDH A, [a8]", 1, cpu_ldh_a_a8},    //0xF0
     {"POP AF", 0, cpu_pop_af},         //0xF1
     {"LDH A, [C]", 0, cpu_ldh_a_c},     //0xF2
-    {"DI", 0, nullptr},             //0xF3
+    {"DI", 0, cpu_di},             //0xF3
     {"???", 0, nullptr},            //0xF4
     {"PUSH AF", 0, cpu_push_af},        //0xF5
     {"OR A, n8", 1, cpu_or_a_n8},       //0xF6
@@ -253,7 +253,7 @@ const struct gb_cpu_instruction instructions[256] = {
     {"LD HL, SP + e8", 1, cpu_ld_hl_sp_e8}, //0xF8
     {"LD SP, HL", 0, cpu_ld_sp_hl},      //0xF9
     {"LD A, [a16]", 2, cpu_ld_a_a16},    //0xFA
-    {"EI", 0, nullptr},             //0xFB
+    {"EI", 0, cpu_ei},             //0xFB
     {"???", 0, nullptr},            //0xFC
     {"???", 0, nullptr},            //0xFD
     {"CP A, n8", 1, cpu_cp_a_n8},       //0xFE

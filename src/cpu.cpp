@@ -1618,6 +1618,13 @@ void cpu_ldh_a_c()      //0xF2
     core_advance_cpu_clocks(4);
 }
 
+void cpu_di()           //0xF3
+{
+    core_advance_cpu_clocks(4);
+    interrupt_master_enable = false;
+    interrupt_enable_ime_delay = 0;
+}
+
 void cpu_push_af()      //0xF5
 {
     cpu_routine_push_16(cpu_registers.a, cpu_registers.f);
@@ -1672,6 +1679,12 @@ void cpu_ld_a_a16()     //0xFA
     core_advance_cpu_clocks(4);
     cpu_registers.a = memory_bus_read(temp);
     core_advance_cpu_clocks(4);
+}
+
+void cpu_ei()           //0xFB
+{
+    core_advance_cpu_clocks(4);
+    interrupt_enable_ime_delay = 1;
 }
 
 void cpu_cp_a_n8()      //0xFE

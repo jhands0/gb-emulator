@@ -312,7 +312,7 @@ void cpu_rst_28();      //0xEF
 void cpu_ldh_a_a8();    //0xF0
 void cpu_pop_af();      //0xF1
 void cpu_ldh_a_c();     //0xF2
-
+void cpu_di();          //0xF3
 
 void cpu_push_af();     //0xF5
 void cpu_or_a_n8();     //0xF6
@@ -320,7 +320,7 @@ void cpu_rst_30();      //0xF7
 void cpu_ld_hl_sp_e8(); //0xF8
 void cpu_ld_sp_hl();    //0xF9
 void cpu_ld_a_a16();    //0xFA
-
+void cpu_ei();          //0xFB
 
 
 void cpu_cp_a_n8();     //0xFE

@@ -7,4 +7,10 @@ struct gb_cpu_instruction {
     void* execute;
 };
 
+struct gb_cpu_cb_instruction {
+    const char* disassembly;
+    void* execute;
+};
+
 extern const gb_cpu_instruction instructions[256];
+extern const gb_cpu_cb_instruction cb_instructions[256];

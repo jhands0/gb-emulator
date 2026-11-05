@@ -16,4 +16,5 @@
 - [X] Remaining Instructions
 - [ ] CB Instructions
 - [ ] Debug
+- [ ] Cartridges
 - [ ] Memory Bank Controllers

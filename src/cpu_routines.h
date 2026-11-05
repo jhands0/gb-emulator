@@ -290,3 +290,48 @@
     memory_bus_write(cpu_registers.sp, reg_lo);                     \
     core_advance_cpu_clocks(4);                                     \
 }
+
+
+// CB Instructions
+
+#define cpu_routine_rlc_8(reg8)             \
+{                                           \
+    SET_FLAG_SUBTRACT(0);                   \
+    SET_FLAG_HALF_CARRY(0);                 \
+    SET_FLAG_CARRY((reg8 & 0x80) != 0);     \
+    core_advance_cpu_clocks(4);             \
+    reg8 = (reg << 1) | GET_FLAG_CARRY;     \
+    SET_FLAG_ZERO(reg8 == 0);               \
+}
+
+#define cpu_routine_rrc_8(reg8)                     \
+{                                                   \
+    SET_FLAG_SUBTRACT(0);                           \
+    SET_FLAG_HALF_CARRY(0);                         \
+    SET_FLAG_CARRY((reg8 & 0x01) != 0);             \
+    core_advance_cpu_clocks(4);                     \
+    reg8 = (reg >> 1) | (GET_FLAG_CARRY << 7);      \
+    SET_FLAG_ZERO(reg8 == 0);                       \
+}
+
+#define cpu_routine_rl_8(reg8)              \
+{                                           \
+    SET_FLAG_SUBTRACT(0);                   \
+    SET_FLAG_HALF_CARRY(0);                 \
+    uint32_t temp = GET_FLAG_CARRY;         \
+    SET_FLAG_CARRY((reg8 & 0x80) != 0);     \
+    core_advance_cpu_clocks(4);             \
+    reg8 = (reg << 1) | temp;               \
+    SET_FLAG_ZERO(reg8 == 0);               \
+}
+
+#define cpu_routine_rr_8(reg8)              \
+{                                           \
+    SET_FLAG_SUBTRACT(0);                   \
+    SET_FLAG_HALF_CARRY(0);                 \
+    uint32_t temp = GET_FLAG_CARRY;         \
+    SET_FLAG_CARRY((reg8 & 0x01) != 0);     \
+    core_advance_cpu_clocks(4);             \
+    reg8 = (reg >> 1) | (temp << 7);        \
+    SET_FLAG_ZERO(reg8 == 0);               \
+}

@@ -399,10 +399,26 @@
     reg8 &= ~(1 << bit);                \
 }
 
-#define cpu_routine_res_ptr_8(bit)                              \
+#define cpu_routine_res_ptr_hl(bit)                              \
 {                                                               \
     core_advance_cpu_clocks(4);                                 \
     uint8_t temp = memory_bus_read(cpu_registers.hl);           \
     core_advance_cpu_clocks(4);                                 \
     memory_bus_write(cpu_registers.hl, temp & (~(1 << bit)));   \
+    core_advance_cpu_clocks(4);
+}
+
+#define cpu_routine_set_8(bit, reg)     \
+{                                       \
+    core_advance_cpu_clocks(4);         \
+    reg8 |= (1 << bit);                 \
+}
+
+#define cpu_routine_set_ptr_hl(bit)                              \
+{                                                               \
+    core_advance_cpu_clocks(4);                                 \
+    uint32_t temp = memory_bus_read(cpu_registers.hl);          \
+    core_advance_cpu_clocks(4);                                 \
+    memory_bus_write(cpu_registers.hl, temp | (1 << bit));      \
+    core_advance_cpu_clocks(4);                                 \
 }

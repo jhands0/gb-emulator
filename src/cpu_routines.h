@@ -384,7 +384,7 @@
     SET_FLAG_ZERO((reg8 & (1 << bit)) == 0);    \
 }
 
-#define cpu_routine_bit_ptr_8(bit)                                      \
+#define cpu_routine_bit_ptr_hl(bit)                                      \
 {                                                                       \
     core_advance_cpu_clocks(4);                                         \
     SET_FLAG_SUBTRACT(0);                                               \

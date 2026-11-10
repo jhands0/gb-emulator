@@ -2134,7 +2134,7 @@ void cpu_cb_bit_0_l()   //0x45
 
 void cpu_cb_bit_0_hl()   //0x46
 {
-    cpu_routine_bit_ptr_8(0);
+    cpu_routine_bit_ptr_hl(0);
 }
 
 void cpu_cb_bit_0_a()   //0x47
@@ -2174,7 +2174,7 @@ void cpu_cb_bit_1_l()   //0x4D
 
 void cpu_cb_bit_1_hl()   //0x4E
 {
-    cpu_routine_bit_ptr_8(1);
+    cpu_routine_bit_ptr_hl(1);
 }
 
 void cpu_cb_bit_1_a()   //0x4F
@@ -2214,7 +2214,7 @@ void cpu_cb_bit_2_l()   //0x55
 
 void cpu_cb_bit_2_hl()   //0x56
 {
-    cpu_routine_bit_ptr_8(2);
+    cpu_routine_bit_ptr_hl(2);
 }
 
 void cpu_cb_bit_2_a()   //0x57
@@ -2254,7 +2254,7 @@ void cpu_cb_bit_3_l()   //0x5D
 
 void cpu_cb_bit_3_hl()   //0x5E
 {
-    cpu_routine_bit_ptr_8(3);
+    cpu_routine_bit_ptr_hl(3);
 }
 
 void cpu_cb_bit_3_a()   //0x5F
@@ -2294,7 +2294,7 @@ void cpu_cb_bit_4_l()   //0x65
 
 void cpu_cb_bit_4_hl()   //0x66
 {
-    cpu_routine_bit_ptr_8(4);
+    cpu_routine_bit_ptr_hl(4);
 }
 
 void cpu_cb_bit_4_a()   //0x67
@@ -2334,7 +2334,7 @@ void cpu_cb_bit_5_l()   //0x6D
 
 void cpu_cb_bit_5_hl()   //0x6E
 {
-    cpu_routine_bit_ptr_8(5);
+    cpu_routine_bit_ptr_hl(5);
 }
 
 void cpu_cb_bit_5_a()   //0x6F
@@ -2374,7 +2374,7 @@ void cpu_cb_bit_6_l()   //0x75
 
 void cpu_cb_bit_6_hl()   //0x76
 {
-    cpu_routine_bit_ptr_8(6);
+    cpu_routine_bit_ptr_hl(6);
 }
 
 void cpu_cb_bit_6_a()   //0x77
@@ -2414,7 +2414,7 @@ void cpu_cb_bit_7_l()   //0x7D
 
 void cpu_cb_bit_7_hl()   //0x7E
 {
-    cpu_routine_bit_ptr_8(7);
+    cpu_routine_bit_ptr_hl(7);
 }
 
 void cpu_cb_bit_7_a()   //0x7F

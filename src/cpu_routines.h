@@ -392,3 +392,17 @@
     core_advance_cpu_clocks(4);                                         \
     SET_FLAG_ZERO(memory_bus_read(cpu_registers.hl) & (1 << bit) == 0); \
 }
+
+#define cpu_routine_res_8(bit, reg)     \
+{                                       \
+    core_advance_cpu_clocks(4);         \
+    reg8 &= ~(1 << bit);                \
+}
+
+#define cpu_routine_res_ptr_8(bit)                              \
+{                                                               \
+    core_advance_cpu_clocks(4);                                 \
+    uint8_t temp = memory_bus_read(cpu_registers.hl);           \
+    core_advance_cpu_clocks(4);                                 \
+    memory_bus_write(cpu_registers.hl, temp & (~(1 << bit)));   \
+}

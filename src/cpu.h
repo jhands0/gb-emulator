@@ -67,7 +67,7 @@ void cpu_reset();
 void cpu_tick();
 void cpu_fetch();
 bool cpu_execute();
-
+bool cpu_dump_registers(const gb_cpu_registers& registers);
 
 void cpu_nop();         //0x00
 void cpu_ld_bc_n16();   //0x01

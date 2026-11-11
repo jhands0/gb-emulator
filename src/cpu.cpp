@@ -5,7 +5,7 @@
 #include "emulator_core.h"
 #include "timer.h"
 #include "interrupts.h"
-#include <stdio.h>
+#include "debug_log.h"
 
 gb_cpu_registers cpu_registers;
 uint8_t cpu_current_op_code = 0;
@@ -38,6 +38,13 @@ void cpu_tick()
     {
         core_advance_cpu_clocks(4);
     }
+    
+    if (cpu_instruction_counter > 10000 && cpu_debug_instructions)
+    {
+        cpu_debug_instructions = false;
+        debug_log_close_file();
+    }
+
     interrupt_service_routine();
 }
 
@@ -65,7 +72,7 @@ bool cpu_execute()
         const gb_cpu_instruction& instruction = instructions[cpu_current_op_code];
         const uint8_t pchi = ((cpu_registers.pc - 1) & 0xFF00) >> 8;
         const uint8_t pclo = ((cpu_registers.pc - 1) & 0xFF);
-        printf("Unknown instruction at: %.2X%.2X (%s), count %i\n", pchi, pclo, instruction.disassembly, cpu_instruction_counter);
+        debug_log("Unknown instruction at: %.2X%.2X (%s), count %i\n", pchi, pclo, instruction.disassembly, cpu_instruction_counter);
         return false;
     }
     //Execute instruction
@@ -84,14 +91,14 @@ void cpu_dump_registers(const gb_cpu_registers& registers)
 
     if (instruction.operand_length == 0) 
     {
-        printf("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s\n"
+        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s\n"
             registers.a, registers.f, registers.b, registers.c, registers.d, registers.e, registers.h, registers.l, sphi, splo, pchi, pclo, instruction.disassembly);
     }
 
     if (instruction.operand_length == 1) 
     {
         const uint8_t operand = memory_bus_read(registers.pc + 1);
-        printf("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X)\n"
+        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X)\n"
             registers.a, registers.f, registers.b, registers.c, registers.d, registers.e, registers.h, registers.l, sphi, splo, pchi, pclo, instruction.disassembly, operand);
     }
 
@@ -99,7 +106,7 @@ void cpu_dump_registers(const gb_cpu_registers& registers)
     {
         const uint8_t oplo = memory_bus_read(registers.pc + 1);
         const uint8_t ophi = memory_bus_read(registers.pc + 2);
-        printf("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X%.2X)\n"
+        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X%.2X)\n"
             registers.a, registers.f, registers.b, registers.c, registers.d, registers.e, registers.h, registers.l, sphi, splo, pchi, pclo, instruction.disassembly, ophi, oplo);
     }
 }
@@ -207,7 +214,7 @@ void cpu_stop()         //0x10
     core_advance_cpu_clocks(4);
     if (memory_bus_read(cpu_registers.pc++) != 0)
     {
-        printf("CPU - Corrupted STOP at PC: %04X, should have operand 0x00\n", cpu_registers.pc);
+        debug_log("CPU - Corrupted STOP at PC: %04X, should have operand 0x00\n", cpu_registers.pc);
     }
     core_advance_cpu_clocks(4);
     timer_on_div_write(0);

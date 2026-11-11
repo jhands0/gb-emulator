@@ -15,6 +15,6 @@
 - [X] HALT Instruction
 - [X] Remaining Instructions
 - [X] CB Instructions
-- [ ] Debug
+- [X] Debug
 - [ ] Cartridges
 - [ ] Memory Bank Controllers

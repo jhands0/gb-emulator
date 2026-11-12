@@ -17,7 +17,13 @@ int SDLCALL gb_runapp_callback(int argc, char** argv)
     {
         return -1;
     }
-    printf("App initialisation works!\n");
+    
+    const char* pathname = "";
+
+    if (cart_load(pathname))
+    {
+        cart_print_info();
+    }
 
     SDL_Quit();
 

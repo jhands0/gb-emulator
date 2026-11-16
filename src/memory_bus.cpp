@@ -1,5 +1,6 @@
 #include "memory_bus.h"
 #include "cart.h"
+#include "cart_type.h"
 #include "timer.h"
 #include "interrupts.h"
 #include <stdio.h>

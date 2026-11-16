@@ -1,4 +1,5 @@
 #include "cart.h"
+#include "cart_type.h"
 #include <iostream>
 #include <fstream>
 #include <unistd.h>
@@ -41,7 +42,7 @@ void cart_print_info()
     printf("CGB Flag: %.2X\n", cartridge_header->cgb_flag);
     printf("New Licensee code: %.2X%.2X\n", cartridge_header->new_licensee_code[0], cartridge_header->new_licensee_code[1]);
     printf("SGB Flag: %.2X\n", cartridge_header->sbg_flag);
-    printf("Type: %.2X\n", cartridge_header->cartridge_type);
+    printf("Type: %.2X (%s)\n", cartridge_header->cartridge_type, cart_type_data[cartridge_header->cartridge_type].readable_name);
     printf("ROM Size: %.2X\n", cartridge_header->rom_size);
     printf("RAM Size: %.2X\n", cartridge_header->ram_size);
     printf("Destination code: %.2X\n", cartridge_header->destination_code);

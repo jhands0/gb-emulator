@@ -8,15 +8,33 @@
 uint8_t memory[MEMORY_SIZE];
 uint8_t eram[ERAM_SIZE];
 
+uint8_t rom_bank_number = 0;
+uint8_t ram_bank_number = 0;
+bool ram_enabled = false;
+bool rom_ram_mode_select = false;
+
 uint8_t memory_bus_read(const uint16_t addr)
 {
     if (addr >= 0x0000 && addr <= 0x3FFF) // Read from ROM bank 00
     {
         return cartridge_data[addr];
     }
+
+    const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
+
     if (addr >= 0x4000 && addr <= 0x7FFF) // Read from ROM bank 01-NN
     {
-        return cartridge_data[addr];
+        if (cart_info.type == CART_TYPE::NO_MBC)
+        {
+            return cartridge_data[addr];
+        }
+        else if (cart_info.type == CART_TYPE::MBC1)
+        {
+            const uint16_t ROM_BANK_SIZE == 0x4000 // 16kb rom bank
+            uint8_t rom_bank = rom_bank_number > 0 ? rom_bank_number : 1;
+            const uint32_t offset = ROM_BANK_SIZE * (rom_bank - 1);
+            return cartridge_data[offset + addr];
+        }
     }
     if (addr >= 0x8000 && addr <= 0x9FFF) // VRAM
     {
@@ -24,8 +42,17 @@ uint8_t memory_bus_read(const uint16_t addr)
     }
     if (addr >= 0xA000 && addr <= 0xBFFF) // External RAM
     {
-        const uint16_t eram_addr = {addr - 0xA000};
-        return eram[eram_addr];
+        if (cart_info.type == CART_TYPE::NO_MBC)
+        {
+            const uint16_t eram_addr = {addr - 0xA000};
+            return eram[eram_addr];
+        }
+        else if (cart_info.type == CART_TYPE::MBC1)
+        {
+            const uint16_t bank_offset = ram_bank_number * 0x2000;
+            const uint16_t eram_addr = {addr - 0xA000} + bank_offset;
+            return eram[eram_addr];
+        }
     }
     if (addr >= 0xC000 && addr <= 0xCFFF) // Work RAM bank 0
     {
@@ -63,14 +90,54 @@ uint8_t memory_bus_read(const uint16_t addr)
 
 void memory_bus_write(const uint16_t addr, const uint8_t value)
 {
+    const cart_type_info& cart_info = cart_type_data[cartridge_header->cartridge_type];
+    if (cart_info.type == CART_TYPE::MBC1)
+    {
+        if (addr >= 0x0000 && addr <= 0x1FFF)
+        {
+            ram_enabled = (value & 0xF0) == 0x0A;
+        }
+        if (addr >= 0x2000 && addr <= 0x3FFF)
+        {
+            rom_bank_number = value & 0b00011111;
+            const uint32_t rom_size = 32 * (1 << cartridge_header->rom_size);
+            const uint8_t number_of_rom_banks = rom_size / 16;
+            rom_bank_number = rom_bank_number % number_of_rom_banks;
+        }
+        if (addr >= 0x4000 && addr <= 0x5FFF)
+        {
+            if (rom_ram_mode_select)
+            {
+                ram_bank_number = value & 0b00000011;
+            }
+            else
+            {
+                rom_bank_number = (rom_bank_number & 0b00011111) | ((value & 0b00000011) << 5);
+            }
+        }
+        if (addr >= 0x6000 && addr <= 0x7FFF)
+        {
+            rom_ram_mode_select = value & 1;
+        }
+    }
+
     if (addr >= 0x8000 && addr <= 0x9FFF) // VRAM
     {
         memory[addr] = value;
     }
     if (addr >= 0xA000 && addr <= 0xBFFF) // External RAM
     {
-        const uint16_t eram_addr = {addr - 0xA000};
-        eram[eram_addr] = value
+        if (cart_info.type == CART_TYPE::NO_MBC)
+        {
+            eram[addr - 0xA000] = value;
+        }
+        else if (cart_info.type == CART_TYPE::MBC1)
+        {
+            const uint16_t RAM_BANK_SIZE = 0x2000; // 8kb ram bank
+            const uint32_t offset = RAM_BANK_SIZE * ram_bank_number;
+            const uint16_t eram_addr = offset + (addr - 0xA000);
+            eram[eram_addr] = value;
+        }
     }
     if (addr >= 0xC000 && addr <= 0xCFFF) // Work RAM bank 0
     {

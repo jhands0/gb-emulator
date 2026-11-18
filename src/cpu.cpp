@@ -68,7 +68,7 @@ void cpu_fetch()
     {
         core_advance_cpu_clocks(4);
         const uint8_t cpu_current_op_code_cb = memory_bus_read(cpu_registers.pc++);
-        const gb_cpu_instruction& cb_instruction = cb_instructions[cpu_current_op_code_cb];
+        const gb_cpu_cb_instruction& cb_instruction = cb_instructions[cpu_current_op_code_cb];
         cpu_current_instruction_execute = cb_instruction.execute;
     }
     else

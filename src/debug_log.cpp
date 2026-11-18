@@ -6,7 +6,7 @@ bool log_to_console = true;
 bool log_to_file = false;
 static FILE* logfile = NULL;
 
-void debug_log(const char fmt, ...)
+void debug_log(const char* fmt, ...)
 {
     va_list args;
     if (log_to_console)
@@ -19,13 +19,7 @@ void debug_log(const char fmt, ...)
     {
         if (!logfile)
         {
-            const errno_t err = fopen_s(&logfile, "gb_logfile.txt", "w");
-            if (err != 0)
-            {
-                printf("Failed to open gb_logfile.txt for writing\n");
-                log_to_file = false;
-                return;
-            }
+            freopen("gb_logfile.txt", "w", logfile);
         }
         va_start(args, fmt);
         vfprintf(logfile, fmt, args);

@@ -30,7 +30,7 @@ uint8_t memory_bus_read(const uint16_t addr)
         }
         else if (cart_info.type == CART_TYPE::MBC1)
         {
-            const uint16_t ROM_BANK_SIZE == 0x4000 // 16kb rom bank
+            const uint16_t ROM_BANK_SIZE = 0x4000; // 16kb rom bank
             uint8_t rom_bank = rom_bank_number > 0 ? rom_bank_number : 1;
             const uint32_t offset = ROM_BANK_SIZE * (rom_bank - 1);
             return cartridge_data[offset + addr];
@@ -44,13 +44,13 @@ uint8_t memory_bus_read(const uint16_t addr)
     {
         if (cart_info.type == CART_TYPE::NO_MBC)
         {
-            const uint16_t eram_addr = {addr - 0xA000};
+            const uint16_t eram_addr = (addr - 0xA000);
             return eram[eram_addr];
         }
         else if (cart_info.type == CART_TYPE::MBC1)
         {
             const uint16_t bank_offset = ram_bank_number * 0x2000;
-            const uint16_t eram_addr = {addr - 0xA000} + bank_offset;
+            const uint16_t eram_addr = (addr - 0xA000) + bank_offset;
             return eram[eram_addr];
         }
     }
@@ -194,7 +194,7 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
     }
     if (addr >= 0xFF80 && addr <= 0xFFFE) // HRAM
     {
-        return memory[addr];
+        memory[addr] = value;
     }
     if (addr == 0xFFFF) // Interrupt Enable Register
     {

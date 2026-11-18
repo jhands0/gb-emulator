@@ -59,7 +59,7 @@ struct gb_cpu_registers {
     uint16_t pc; //program counter
 };
 
-typedef void (*cpu_execute_op){};
+typedef void (*cpu_execute_op)();
 
 extern gb_cpu_registers cpu_registers;
 
@@ -67,9 +67,9 @@ void cpu_reset();
 void cpu_tick();
 void cpu_fetch();
 bool cpu_execute();
-bool cpu_dump_registers(const gb_cpu_registers& registers);
+void cpu_dump_registers(const gb_cpu_registers& registers);
 
-void cpu_nop();         //0x00
+void cpu_noop();         //0x00
 void cpu_ld_bc_n16();   //0x01
 void cpu_ld_bc_a();     //0x02
 void cpu_inc_bc();      //0x03
@@ -130,7 +130,7 @@ void cpu_add_hl_sp();   //0x39
 void cpu_ldd_a_hl();    //0x3A
 void cpu_dec_sp();      //0x3B
 void cpu_inc_a();       //0x3C
-void cpu_dex_a();       //0x3D
+void cpu_dec_a();       //0x3D
 void cpu_ld_a_n8();     //0x3E
 void cpu_ccf();         //0x3F
 void cpu_ld_b_b();      //0x40

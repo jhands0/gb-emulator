@@ -3,6 +3,8 @@
 #include "emulator_core.h"
 #include "cpu.h"
 
+extern uint8_t cpu_halt_count;
+
 bool interrupt_master_enable = false;
 uint8_t interrupt_enable_ime_delay = 0;
 
@@ -55,16 +57,16 @@ void interrupt_service_routine()
         {
             return;
         }
-        const enable_v_blank = CHECK_BIT(interrupt_enable, 0);
-        const enable_lcd_stat = CHECK_BIT(interrupt_enable, 1);
-        const enable_timer = CHECK_BIT(interrupt_enable, 2);
-        const enable_serial = CHECK_BIT(interrupt_enable, 3);
-        const enable_joypad = CHECK_BIT(interrupt_enable, 4);
-        const flag_v_blank = CHECK_BIT(interrupt_flag, 0);
-        const flag_lcd_stat = CHECK_BIT(interrupt_flag, 1);
-        const flag_timer = CHECK_BIT(interrupt_flag, 2);
-        const flag_serial = CHECK_BIT(interrupt_flag, 3);
-        const flag_joypad = CHECK_BIT(interrupt_flag, 4);
+        const bool enable_v_blank = CHECK_BIT(interrupt_enable, 0);
+        const bool enable_lcd_stat = CHECK_BIT(interrupt_enable, 1);
+        const bool enable_timer = CHECK_BIT(interrupt_enable, 2);
+        const bool enable_serial = CHECK_BIT(interrupt_enable, 3);
+        const bool enable_joypad = CHECK_BIT(interrupt_enable, 4);
+        const bool flag_v_blank = CHECK_BIT(interrupt_flag, 0);
+        const bool flag_lcd_stat = CHECK_BIT(interrupt_flag, 1);
+        const bool flag_timer = CHECK_BIT(interrupt_flag, 2);
+        const bool flag_serial = CHECK_BIT(interrupt_flag, 3);
+        const bool flag_joypad = CHECK_BIT(interrupt_flag, 4);
 
         if (enable_v_blank && flag_v_blank)
         {

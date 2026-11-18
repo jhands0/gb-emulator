@@ -91,14 +91,14 @@ void cpu_dump_registers(const gb_cpu_registers& registers)
 
     if (instruction.operand_length == 0) 
     {
-        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s\n"
+        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s\n",
             registers.a, registers.f, registers.b, registers.c, registers.d, registers.e, registers.h, registers.l, sphi, splo, pchi, pclo, instruction.disassembly);
     }
 
     if (instruction.operand_length == 1) 
     {
         const uint8_t operand = memory_bus_read(registers.pc + 1);
-        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X)\n"
+        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X)\n",
             registers.a, registers.f, registers.b, registers.c, registers.d, registers.e, registers.h, registers.l, sphi, splo, pchi, pclo, instruction.disassembly, operand);
     }
 
@@ -106,7 +106,7 @@ void cpu_dump_registers(const gb_cpu_registers& registers)
     {
         const uint8_t oplo = memory_bus_read(registers.pc + 1);
         const uint8_t ophi = memory_bus_read(registers.pc + 2);
-        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X%.2X)\n"
+        debug_log("AF: %.2X%.2X BC: %.2X%.2X DE: %.2X%.2X HL: %.2X%.2X SP: %.2X%.2X PC: %.2X%.2X %s (%.2X%.2X)\n",
             registers.a, registers.f, registers.b, registers.c, registers.d, registers.e, registers.h, registers.l, sphi, splo, pchi, pclo, instruction.disassembly, ophi, oplo);
     }
 }
@@ -392,7 +392,7 @@ void cpu_add_hl_hl()    //0x29
     SET_FLAG_CARRY((cpu_registers.hl & 0x8000) != 0);
     SET_FLAG_HALF_CARRY((cpu_registers.hl & 0x0800) != 0);
     core_advance_cpu_clocks(4);
-    cpu_registers.hl = (cpu_registers << 1) & 0xFFFF;
+    cpu_registers.hl = (cpu_registers.hl << 1) & 0xFFFF;
 }
 
 void cpu_ldi_a_hl()     //0x2A
@@ -852,8 +852,8 @@ void cpu_ld_hl_l()      //0x75
 void cpu_halt()         //0x76
 {
     core_advance_cpu_clocks(4);
-    const uint8_t interrupt_enable = memory_bus_read[ADDR_IO_IE];
-    const uint8_t interrupt_flag = memory_bus_read[ADDR_IO_IF];
+    const uint8_t interrupt_enable = memory_bus_read(ADDR_IO_IE);
+    const uint8_t interrupt_flag = memory_bus_read(ADDR_IO_IF);
     const bool interrupt_pending = ((interrupt_enable & interrupt_flag) & 0x1F) != 0;
     if (!interrupt_master_enable && interrupt_pending != 0)
     {
@@ -903,12 +903,7 @@ void cpu_ld_a_h()       //0x7C
 void cpu_ld_a_l()       //0x7D
 {
     core_advance_cpu_clocks(4);
-    cpu_registers.a = cpu_registers.l
-}
-
-void cpu_ld_a_hl()      //0x7E
-{
-    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.hl);
+    cpu_registers.a = cpu_registers.l;
 }
 
 void cpu_ld_a_a()       //0x7F
@@ -1348,7 +1343,7 @@ void cpu_ret_nz()       //0xC0
 
 void cpu_pop_bc()       //0xC1
 {
-    cpu_routine_pop_16(cpu_registers.b. cpu_registers.c);
+    cpu_routine_pop_16(cpu_registers.b, cpu_registers.c);
 }
 
 void cpu_jp_nz_a16()    //0xC2

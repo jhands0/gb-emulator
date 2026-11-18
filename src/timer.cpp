@@ -2,11 +2,11 @@
 #include "interrupts.h"
 #include "memory_bus.h"
 
-extern cpu_halt_count;
+extern uint8_t cpu_halt_count;
 
 const uint16_t timer_tac_edge_bits[4] = { 9, 3, 5, 7 };
 
-gb_timer_registers* timer_registers = (gb_timer_registers*){memory + 0xFF04};
+gb_timer_registers* timer_registers = (gb_timer_registers*)(memory + 0xFF04);
 
 uint16_t timer_internal_sysclk = 0;
 uint8_t timer_interrupt_delay = 0;

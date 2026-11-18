@@ -3,12 +3,21 @@
 #include "cart.h"
 #include "cpu.h"
 #include "timer.h"
+#include "memory_bus.h"
+#include <cstring>
+
+#include <SDL3/SDL_init.h>
 
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
 
 int core_init()
 {
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+    {
+        return -1;
+    }
+
     const char* filename = "";
 
     if (!cart_load(filename))
@@ -18,11 +27,14 @@ int core_init()
 
     cart_print_info();
 
+    timer_init();
+
     return 0;
 }
 
 void core_run()
 {
+    memset(memory, 0, MEMORY_SIZE);
     cpu_reset();
 
     while (!core_quit_requested) 
@@ -35,11 +47,24 @@ void core_run()
 
 void core_shutdown()
 {
-
+    SDL_Quit();
 }
 
 void core_advance_cpu_clocks(uint8_t clocks)
 {
     timer_advance_clocks(clocks);
     core_clock_counter += clocks;
+
+    if (interrupt_enable_ime_delay > 0)
+    {
+        for (uint8_t c = 0; c < clocks; c++)
+        {
+            interrupt_enable_ime_delay--;
+            if (interrupt_enable_ime_delay == 0)
+            {
+                interrupt_master_enable = true;
+                break;
+            }
+        }
+    }
 }

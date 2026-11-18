@@ -300,7 +300,7 @@
     SET_FLAG_HALF_CARRY(0);                 \
     SET_FLAG_CARRY((reg8 & 0x80) != 0);     \
     core_advance_cpu_clocks(4);             \
-    reg8 = (reg << 1) | GET_FLAG_CARRY;     \
+    reg8 = (reg8 << 1) | GET_FLAG_CARRY;     \
     SET_FLAG_ZERO(reg8 == 0);               \
 }
 
@@ -310,7 +310,7 @@
     SET_FLAG_HALF_CARRY(0);                         \
     SET_FLAG_CARRY((reg8 & 0x01) != 0);             \
     core_advance_cpu_clocks(4);                     \
-    reg8 = (reg >> 1) | (GET_FLAG_CARRY << 7);      \
+    reg8 = (reg8 >> 1) | (GET_FLAG_CARRY << 7);      \
     SET_FLAG_ZERO(reg8 == 0);                       \
 }
 
@@ -321,7 +321,7 @@
     uint32_t temp = GET_FLAG_CARRY;         \
     SET_FLAG_CARRY((reg8 & 0x80) != 0);     \
     core_advance_cpu_clocks(4);             \
-    reg8 = (reg << 1) | temp;               \
+    reg8 = (reg8 << 1) | temp;               \
     SET_FLAG_ZERO(reg8 == 0);               \
 }
 
@@ -332,7 +332,7 @@
     uint32_t temp = GET_FLAG_CARRY;         \
     SET_FLAG_CARRY((reg8 & 0x01) != 0);     \
     core_advance_cpu_clocks(4);             \
-    reg8 = (reg >> 1) | (temp << 7);        \
+    reg8 = (reg8 >> 1) | (temp << 7);        \
     SET_FLAG_ZERO(reg8 == 0);               \
 }
 
@@ -396,25 +396,25 @@
 #define cpu_routine_res_8(bit, reg)     \
 {                                       \
     core_advance_cpu_clocks(4);         \
-    reg8 &= ~(1 << bit);                \
+    reg &= ~(1 << bit);                \
 }
 
-#define cpu_routine_res_ptr_hl(bit)                              \
+#define cpu_routine_res_ptr_hl(bit)                             \
 {                                                               \
     core_advance_cpu_clocks(4);                                 \
     uint8_t temp = memory_bus_read(cpu_registers.hl);           \
     core_advance_cpu_clocks(4);                                 \
     memory_bus_write(cpu_registers.hl, temp & (~(1 << bit)));   \
-    core_advance_cpu_clocks(4);
+    core_advance_cpu_clocks(4);                                 \
 }
 
 #define cpu_routine_set_8(bit, reg)     \
 {                                       \
     core_advance_cpu_clocks(4);         \
-    reg8 |= (1 << bit);                 \
+    reg |= (1 << bit);                 \
 }
 
-#define cpu_routine_set_ptr_hl(bit)                              \
+#define cpu_routine_set_ptr_hl(bit)                             \
 {                                                               \
     core_advance_cpu_clocks(4);                                 \
     uint32_t temp = memory_bus_read(cpu_registers.hl);          \

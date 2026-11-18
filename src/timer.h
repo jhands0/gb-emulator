@@ -4,10 +4,10 @@
 
 struct gb_timer_registers
 {
-    uint8_t timer_div,
-    uint8_t timer_tima,
-    uint8_t timer_tma,
-    uint8_t timer_tac,
+    uint8_t timer_div;
+    uint8_t timer_tima;
+    uint8_t timer_tma;
+    uint8_t timer_tac;
 };
 
 extern gb_timer_registers* timer_registers;

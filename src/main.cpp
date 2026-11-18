@@ -4,6 +4,8 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
+#include "emulator_core.h"
+
 int SDLCALL gb_runapp_callback(int argc, char** argv);
 
 int main(int argc, char** argv) 
@@ -13,19 +15,15 @@ int main(int argc, char** argv)
 
 int SDLCALL gb_runapp_callback(int argc, char** argv) 
 {
-    if (!SDL_Init(SDL_INIT_VIDEO))
+    int error = core_init();
+    if (error != 0)
     {
-        return -1;
-    }
-    
-    const char* pathname = "";
-
-    if (cart_load(pathname))
-    {
-        cart_print_info();
+        return error;
     }
 
-    SDL_Quit();
+    core_run();
+
+    core_shutdown();
 
     return 0;
 }

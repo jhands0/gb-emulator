@@ -2,9 +2,10 @@
 
 #include <stdint.h>
 
+#define MAX_PATH 4096
 const int MAX_CART_SIZE = 1024 * 1024; //1MB
-extern uint8_t = cartridge_data[MAX_CART_SIZE];
-extern bool = cartridge_loaded;
+extern uint8_t cartridge_data[MAX_CART_SIZE];
+extern bool cartridge_loaded;
 
 struct cart_header_struct 
 {

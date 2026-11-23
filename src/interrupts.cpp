@@ -1,7 +1,7 @@
-#include "interrupts.h"
-#include "memory_bus.h"
-#include "emulator_core.h"
-#include "cpu.h"
+#include "../include/interrupts.h"
+#include "../include/memory_bus.h"
+#include "../include/emulator_core.h"
+#include "../include/cpu.h"
 
 extern uint8_t cpu_halt_count;
 

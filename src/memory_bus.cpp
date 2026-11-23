@@ -1,8 +1,8 @@
-#include "memory_bus.h"
-#include "cart.h"
-#include "cart_type.h"
-#include "timer.h"
-#include "interrupts.h"
+#include "../include/memory_bus.h"
+#include "../include/cart.h"
+#include "../include/cart_type.h"
+#include "../include/timer.h"
+#include "../include/interrupts.h"
 #include <stdio.h>
 
 uint8_t memory[MEMORY_SIZE];

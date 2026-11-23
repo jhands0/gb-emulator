@@ -1,5 +1,5 @@
-#include "cpu_instructions.h"
-#include "cpu.h"
+#include "../include/cpu_instructions.h"
+#include "../include/cpu.h"
 
 const gb_cpu_instruction instructions[256] = {
     {"NOP", 0, (void*) cpu_noop  },            //0x00

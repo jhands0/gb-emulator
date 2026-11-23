@@ -1,6 +1,6 @@
-#include "timer.h"
-#include "interrupts.h"
-#include "memory_bus.h"
+#include "../include/timer.h"
+#include "../include/interrupts.h"
+#include "../include/memory_bus.h"
 
 extern uint8_t cpu_halt_count;
 

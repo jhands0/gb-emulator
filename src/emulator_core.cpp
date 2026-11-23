@@ -1,12 +1,12 @@
-#include "emulator_core.h"
+#include "../include/emulator_core.h"
 
-#include "cart.h"
-#include "cpu.h"
-#include "timer.h"
-#include "memory_bus.h"
+#include "../include/cart.h"
+#include "../include/cpu.h"
+#include "../include/timer.h"
+#include "../include/memory_bus.h"
 #include <cstring>
 
-#include <SDL3/SDL_init.h>
+#include "../include/SDL3/SDL_init.h"
 
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
@@ -18,7 +18,7 @@ int core_init()
         return -1;
     }
 
-    const char* filename = "";
+    const char* filename = "../blargg-test-roms/cpu_instrs/individual/01-special.gb";
 
     if (!cart_load(filename))
     {

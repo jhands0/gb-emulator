@@ -486,7 +486,7 @@ void cpu_dec__hl()      //0x35
     uint32_t temp = memory_bus_read(cpu_registers.hl);
     core_advance_cpu_clocks(4);
     SET_FLAG_SUBTRACT(1);
-    SET_FLAG_HALF_CARRY((temp & 0xF) == 0xF);
+    SET_FLAG_HALF_CARRY((temp & 0xF) == 0);
     temp = (temp - 1) & 0xFF;
     SET_FLAG_ZERO(temp == 0);
     core_advance_cpu_clocks(4);
@@ -1138,7 +1138,7 @@ void cpu_sbc_a_a()      //0x9F
     core_advance_cpu_clocks(4);
     if (GET_FLAG_CARRY)
     {
-        cpu_registers.a == 0xFF;
+        cpu_registers.a = 0xFF;
         SET_FLAG_CARRY(1);
         SET_FLAG_HALF_CARRY(1);
         SET_FLAG_ZERO(0);
@@ -1665,6 +1665,7 @@ void cpu_ldh_a_a8()     //0xF0
 void cpu_pop_af()       //0xF1
 {
     cpu_routine_pop_16(cpu_registers.a, cpu_registers.f);
+    cpu_registers.f &= 0xF0;
 }
 
 void cpu_ldh_a_c()      //0xF2
@@ -1691,7 +1692,7 @@ void cpu_or_a_n8()      //0xF6
     core_advance_cpu_clocks(4);
     SET_FLAG_SUBTRACT(0);
     SET_FLAG_CARRY(0);
-    SET_FLAG_HALF_CARRY(1);
+    SET_FLAG_HALF_CARRY(0);
     core_advance_cpu_clocks(4);
     cpu_registers.a |= memory_bus_read(cpu_registers.pc++);
     SET_FLAG_ZERO(cpu_registers.a == 0);

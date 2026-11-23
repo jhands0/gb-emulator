@@ -152,10 +152,11 @@
 
 #define cpu_routine_cp_a_8(reg8)                                    \
 {                                                                   \
-    SET_FLAG_SUBTRACT(0);                                           \
+    SET_FLAG_SUBTRACT(1);                                           \
     SET_FLAG_HALF_CARRY((cpu_registers.a & 0xF) < (reg8 & 0xF));    \
     SET_FLAG_CARRY((uint32_t)cpu_registers.a < (uint32_t)reg8);     \
     SET_FLAG_ZERO(cpu_registers.a == reg8);                         \
+    core_advance_cpu_clocks(4);                                     \
 }
 
 #define cpu_routine_rst(addr)                                       \
@@ -373,7 +374,7 @@
     SET_FLAG_CARRY((reg8 & 0x01) != 0);     \
     core_advance_cpu_clocks(4);             \
     reg8 = reg8 >> 1;                       \
-    SET_FLAG_ZERO(0);                       \
+    SET_FLAG_ZERO(reg8 == 0);               \
 }
 
 #define cpu_routine_bit_8(bit, reg8)            \
@@ -390,7 +391,7 @@
     SET_FLAG_SUBTRACT(0);                                               \
     SET_FLAG_HALF_CARRY(1);                                             \
     core_advance_cpu_clocks(4);                                         \
-    SET_FLAG_ZERO(memory_bus_read(cpu_registers.hl) & (1 << bit) == 0); \
+    SET_FLAG_ZERO((memory_bus_read(cpu_registers.hl) & (1 << bit)) == 0); \
 }
 
 #define cpu_routine_res_8(bit, reg)     \

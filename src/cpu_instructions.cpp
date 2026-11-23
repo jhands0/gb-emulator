@@ -271,7 +271,7 @@ const gb_cpu_cb_instruction cb_instructions[256] = {
     {"RLC A", (void*) cpu_cb_rlc_a  },      //0x07
     {"RRC B", (void*) cpu_cb_rrc_b  },      //0x08
     {"RRC C", (void*) cpu_cb_rrc_c  },      //0x09
-    {"RRC D", (void*) cpu_cb_rrc_c  },      //0x0A
+    {"RRC D", (void*) cpu_cb_rrc_d  },      //0x0A
     {"RRC E", (void*) cpu_cb_rrc_e  },      //0x0B
     {"RRC H", (void*) cpu_cb_rrc_h  },      //0x0C
     {"RRC L", (void*) cpu_cb_rrc_l  },      //0x0D

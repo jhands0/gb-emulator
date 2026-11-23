@@ -919,6 +919,11 @@ void cpu_ld_a_l()       //0x7D
     cpu_registers.a = cpu_registers.l;
 }
 
+void cpu_ld_a_hl()      //0x7E
+{
+    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.hl);
+}
+
 void cpu_ld_a_a()       //0x7F
 {
     core_advance_cpu_clocks(4);

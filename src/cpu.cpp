@@ -1,11 +1,11 @@
-#include "cpu.h"
-#include "cpu_instructions.h"
-#include "cpu_routines.h"
-#include "memory_bus.h"
-#include "emulator_core.h"
-#include "timer.h"
-#include "interrupts.h"
-#include "debug_log.h"
+#include "../include/cpu.h"
+#include "../include/cpu_instructions.h"
+#include "../include/cpu_routines.h"
+#include "../include/memory_bus.h"
+#include "../include/emulator_core.h"
+#include "../include/timer.h"
+#include "../include/interrupts.h"
+#include "../include/debug_log.h"
 
 gb_cpu_registers cpu_registers;
 uint8_t cpu_current_op_code = 0;
@@ -289,9 +289,9 @@ void cpu_add_hl_de()    //0x19
     cpu_routine_add_hl_16(cpu_registers.de);
 }
 
-void cpu_ld_a_hl()      //0x1A
+void cpu_ld_a_de()      //0x1A
 {
-    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.hl);
+    cpu_routine_ld_ptr_16(cpu_registers.a, cpu_registers.de);
 }
 
 void cpu_dec_de()       //0x1B

@@ -18,7 +18,7 @@ int core_init()
         return -1;
     }
 
-    const char* filename = "../blargg-test-roms/cpu_instrs/individual/11-op-a-hl.gb";
+    const char* filename = "../blargg-test-roms/";
 
     if (!cart_load(filename))
     {

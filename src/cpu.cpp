@@ -214,7 +214,7 @@ void cpu_ld_c_n8()      //0x0E
 
 void cpu_rrca()         //0x0F
 {
-    core_advance_cpu_clocks(0);
+    core_advance_cpu_clocks(4);
     SET_FLAG_ZERO(0);
     SET_FLAG_SUBTRACT(0);
     SET_FLAG_HALF_CARRY(0);

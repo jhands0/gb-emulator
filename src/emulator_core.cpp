@@ -4,6 +4,7 @@
 #include "../include/cpu.h"
 #include "../include/timer.h"
 #include "../include/memory_bus.h"
+#include "../include/ppu.h"
 #include <cstring>
 
 
@@ -30,6 +31,8 @@ int core_init()
     }
 
     cart_print_info();
+
+    core_init_gfx_contexts();
 
     timer_init();
 
@@ -76,11 +79,11 @@ void core_advance_cpu_clocks(uint8_t clocks)
 void core_init_gfx_contexts()
 {
     const SDL_Color COLOR_BLACK = { 0, 0, 0, 0 };
-    gfx_debug_ctx = gfx_init(256, 256, "Debug");
+    gfx_debug_ctx = gfx_init(512, 512, "Debug");
     gfx_clear(gfx_debug_ctx, COLOR_BLACK);
     gfx_update(gfx_debug_ctx);
 
-    gfx_render_ctx = gfx_init(160, 144, "GB-Emulator");
+    gfx_render_ctx = gfx_init(LCD_PIXELS_WIDTH * PPU_RENDER_SCALE, LCD_PIXELS_HEIGHT * PPU_RENDER_SCALE, "GB-Emulator");
     gfx_clear(gfx_render_ctx, COLOR_BLACK);
     gfx_update(gfx_render_ctx);
 }

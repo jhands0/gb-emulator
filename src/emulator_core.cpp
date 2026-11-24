@@ -6,7 +6,11 @@
 #include "../include/memory_bus.h"
 #include <cstring>
 
-#include "../include/SDL3/SDL_init.h"
+
+gfx_context* gfx_debug_ctx = nullptr;
+gfx_context* gfx_render_ctx = nullptr;
+
+void core_init_gfx_contexts();
 
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
@@ -67,4 +71,16 @@ void core_advance_cpu_clocks(uint8_t clocks)
             }
         }
     }
+}
+
+void core_init_gfx_contexts()
+{
+    const SDL_Color COLOR_BLACK = { 0, 0, 0, 0 };
+    gfx_debug_ctx = gfx_init(256, 256, "Debug");
+    gfx_clear(gfx_debug_ctx, COLOR_BLACK);
+    gfx_update(gfx_debug_ctx);
+
+    gfx_render_ctx = gfx_init(160, 144, "GB-Emulator");
+    gfx_clear(gfx_render_ctx, COLOR_BLACK);
+    gfx_update(gfx_render_ctx);
 }

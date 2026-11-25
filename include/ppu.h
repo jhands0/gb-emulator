@@ -11,25 +11,25 @@ const uint8_t LCDS_MODE_1_V_BLANK = 1;
 const uint8_t LCDS_MODE_2_OAM_SEARCH = 2;
 const uint8_t LCDS_MODE_3_DRAWING = 3;
 
-extern lcd_registers* ppu_lcd_registers;
+const uint16_t OBJECT_ATTRIBUTE_ADDRESS = 0xFE00;
 
 // LCD Control flags
-#define LCDC_ENABLE_LCD CHECK_BIT(ppu_lcd_registers->control, 7);
-#define LCDC_WINDOW_TILE_MAP_SELECT CHECK_BIT(ppu_lcd_registers->control, 6);
-#define LCDC_WINDOW_ENABLE CHECK_BIT(ppu_lcd_registers->control, 5);
-#define LCDC_TILE_DATA_SELECT CHECK_BIT(ppu_lcd_registers->control, 4);
-#define LCDC_BG_TILE_MAP_SELECT CHECK_BIT(ppu_lcd_registers->control, 3);
-#define LCDC_SPRITE_SIZE CHECK_BIT(ppu_lcd_registers->control, 2);
-#define LCDC_SPRITE_ENABLE CHECK_BIT(ppu_lcd_registers->control, 1);
-#define LCDC_BG_WINDOW_ENABLE CHECK_BIT(ppu_lcd_registers->control, 0);
+#define LCDC_ENABLE_LCD CHECK_BIT(ppu_lcd_registers->control, 7)
+#define LCDC_WINDOW_TILE_MAP_SELECT CHECK_BIT(ppu_lcd_registers->control, 6)
+#define LCDC_WINDOW_ENABLE CHECK_BIT(ppu_lcd_registers->control, 5)
+#define LCDC_TILE_DATA_SELECT CHECK_BIT(ppu_lcd_registers->control, 4)
+#define LCDC_BG_TILE_MAP_SELECT CHECK_BIT(ppu_lcd_registers->control, 3)
+#define LCDC_SPRITE_SIZE CHECK_BIT(ppu_lcd_registers->control, 2)
+#define LCDC_SPRITE_ENABLE CHECK_BIT(ppu_lcd_registers->control, 1)
+#define LCDC_BG_WINDOW_ENABLE CHECK_BIT(ppu_lcd_registers->control, 0)
 
 // LCD Status flags
-#define LCDS_LYC_EQUALS_LY_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 6);
-#define LCDS_MODE_2_STAT_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 5);
-#define LCDS_MODE_1_STAT_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 4);
-#define LCDS_MODE_0_STAT_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 3);
-#define LCDS_COINCIDENCE_FLAG CHECK_BIT(ppu_lcd_registers->status, 2);
-#define LCDS_PPU_MODE (ppu_load_registers->status & 0b00000011) 
+#define LCDS_LYC_EQUALS_LY_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 6)
+#define LCDS_MODE_2_STAT_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 5)
+#define LCDS_MODE_1_STAT_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 4)
+#define LCDS_MODE_0_STAT_INTERRUPT_ENABLE CHECK_BIT(ppu_lcd_registers->status, 3)
+#define LCDS_COINCIDENCE_FLAG CHECK_BIT(ppu_lcd_registers->status, 2)
+#define LCDS_PPU_MODE (ppu_lcd_registers->status & 0b00000011) 
 
 
 struct lcd_registers
@@ -67,6 +67,8 @@ struct pixel_fifo_data
 	uint8_t color;
 	bool from_sprite;
 };
+
+extern lcd_registers* ppu_lcd_registers;
 
 void ppu_init();
 void ppu_reset();

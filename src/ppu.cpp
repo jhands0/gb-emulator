@@ -474,9 +474,49 @@ void ppu_on_palette_write(const uint8_t addr)
 	if (addr == 0xFF49) extract_palette(addr, sprite_palette_1);
 }
 
+const SDL_Color ppu_lcd_color_lit = { 223, 230, 179, 255 };
+const SDL_Color ppu_gb_colors[4] = {
+	{ 185, 200, 90, 255 },
+	{ 131, 145, 0, 255 },
+	{ 74, 82, 4, 255 },
+	{ 40, 44, 90, 255 },
+};
+
 void render_frame()
 {
-	
+	void* pixels = NULL;
+	uint8_t* base = NULL;
+	int pitch = 0;
+	int result = SDL_LockTexture(gfx_render_ctx->texture, NULL, &pixels, &pitch);
+	SDL_SetRenderDrawColor(gfx_render_ctx->renderer, ppu_lcd_color_lit.r, ppu_lcd_color_lit.g, ppu_lcd_color_lit.b, ppu_lcd_color_lit.a);
+	result = SDL_RenderClear(gfx_render_ctx->renderer);
+	if (!LCDC_ENABLE_LCD || ppu_first_frame_after_lcd_enable)
+	{
+		SDL_RenderPresent(gfx_render_ctx->renderer);
+		return;
+	}
+
+	for (uint16_t y = 0; y < LCD_PIXELS_HEIGHT; y++)
+	{
+		for (uint16_t x = 0; x < LCD_PIXELS_WIDTH; x++)
+		{
+			const uint32_t index = (y * LCD_PIXELS_WIDTH) + x;
+			const uint8_t color_index = frame_pixels[index];
+			const SDL_Color& color = ppu_gb_colors[color_index];
+			base = ((uint8_t*)pixels) + (4 * ((y * LCD_PIXELS_WIDTH * PPU_RENDER_SCALE) + x));
+			base[0] = color.a;
+			base[1] = color.b;
+			base[2] = color.g;
+			base[3] = color.r;
+		}
+	}
+
+	SDL_UnlockTexture(gfx_render_ctx->texture);
+	SDL_FRect src_rect = { 0, 0, LCD_PIXELS_WIDTH, LCD_PIXELS_HEIGHT };
+	result = SDL_RenderTexture(gfx_render_ctx->renderer, gfx_render_ctx->texture, &src_rect, NULL);
+	SDL_RenderPresent(gfx_render_ctx->renderer);
+
+	memset(frame_pixels, 0, LCD_PIXELS_WIDTH * LCD_PIXELS_HEIGHT);
 }
 
 void render_debug()

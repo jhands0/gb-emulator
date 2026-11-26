@@ -363,12 +363,17 @@ void ppu_advance_clocks(const uint8_t clocks)
 			if (ppu_scanline_dot == 79)
 			{
 				ppu_set_lcd_mode(LCDS_MODE_3_DRAWING);
+				ppu_discard_pixels = ppu_lcd_registers->scx % 8;
 			}
 		}
 		else if (ppu_mode = LCDS_MODE_3_DRAWING)
 		{
 			ppu_fetcher_tick();
 			ppu_shifter_tick();
+			if (LCDS_PPU_MODE != LCDS_MODE_3_DRAWING)
+			{
+				continue;
+			}
 		}
 		else if (ppu_mode = LCDS_MODE_0_H_BLANK)
 		{

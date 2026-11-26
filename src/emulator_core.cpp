@@ -34,6 +34,8 @@ int core_init()
 
     core_init_gfx_contexts();
 
+    ppu_init();
+
     timer_init();
 
     return 0;
@@ -43,6 +45,7 @@ void core_run()
 {
     memset(memory, 0, MEMORY_SIZE);
     cpu_reset();
+    ppu_reset();
 
     while (!core_quit_requested) 
     {
@@ -60,6 +63,7 @@ void core_shutdown()
 void core_advance_cpu_clocks(uint8_t clocks)
 {
     timer_advance_clocks(clocks);
+    ppu_advance_clocks(clocks);
     core_clock_counter += clocks;
 
     if (interrupt_enable_ime_delay > 0)

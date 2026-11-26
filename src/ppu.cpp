@@ -423,6 +423,8 @@ void ppu_advance_clocks(const uint8_t clocks)
 					render_debug();
 					ppu_set_lcd_mode(LCDS_MODE_2_OAM_SEARCH);
 					ppu_first_frame_after_lcd_enable = false;
+
+					core_on_frame();
 				}
 				ppu_check_ly_compare();
 				continue;

@@ -4,6 +4,7 @@
 #include "../include/timer.h"
 #include "../include/interrupts.h"
 #include "../include/ppu.h"
+#include "../include/joypad.h"
 #include <stdio.h>
 
 uint8_t memory[MEMORY_SIZE];
@@ -89,9 +90,9 @@ uint8_t memory_bus_read(const uint16_t addr)
     }
     if (addr >= 0xFF00 && addr <= 0xFF7F) // I/O Registers
     {
-        if (addr == 0xFF00)
+        if (addr == 0xFF00) // Joypad
         {
-            return 0x0F;
+            return joypad_read_input();
         }
         return memory[addr];
     }
@@ -188,7 +189,11 @@ void memory_bus_write(const uint16_t addr, const uint8_t value)
     }
     if (addr >= 0xFF00 && addr <= 0xFF7F) // I/O Registers
     {
-        if (addr == 0xFF02 && value == 0x81) // Blargg test serial output
+        if (addr == 0xFF00) // Joypad
+        {
+            joypad_write_input(value);
+        }
+        else if (addr == 0xFF02 && value == 0x81) // Blargg test serial output
         {
             char c = memory[0xFF01];
             printf("%c", c);

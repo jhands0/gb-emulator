@@ -10,17 +10,17 @@
 #include <chrono>
 #include <thread>
 
-const uint32_t CPU_FRAME_TIME_NS = 1.0 / 60.0 * 1000000000
+const uint32_t CPU_FRAME_TIME_NS = 1.0 / 60.0 * 1000000000;
 gfx_context* gfx_debug_ctx = nullptr;
 gfx_context* gfx_render_ctx = nullptr;
 
 void core_init_gfx_contexts();
 void core_on_key_press(SDL_Scancode sym, bool down);
-void core_sleep_until(std::chrono:high_resolution_clock::time_point target_time);
+void core_sleep_until(std::chrono::high_resolution_clock::time_point target_time);
 
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
-std::chrono::steady_clock::time_point core_frame_time_begin;
+std::chrono::high_resolution_clock::time_point core_time_frame_begin;
 
 int core_init()
 {
@@ -53,7 +53,7 @@ void core_run()
     cpu_reset();
     ppu_reset();
 
-    core_time_frame_begin = std::chrono::high_resolution_clock::new();
+    core_time_frame_begin = std::chrono::high_resolution_clock::now();
 
     while (!core_quit_requested) 
     {
@@ -103,7 +103,7 @@ void core_on_frame()
     auto sleep_time = std::chrono::nanoseconds((CPU_FRAME_TIME_NS)-time_elapsed.count());
     if (sleep_time.count() > 0)
     {
-        std::chrono::high_resolution_clock::time_point end_of_sleep = time_frame_end + sleep_time
+        std::chrono::high_resolution_clock::time_point end_of_sleep = time_frame_end + sleep_time;
         core_sleep_until(end_of_sleep);
     }
     core_time_frame_begin = std::chrono::high_resolution_clock::now();

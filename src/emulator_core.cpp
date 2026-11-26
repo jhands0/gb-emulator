@@ -7,15 +7,20 @@
 #include "../include/ppu.h"
 #include "../include/joypad.h"
 #include <cstring>
+#include <chrono>
+#include <thread>
 
+const uint32_t CPU_FRAME_TIME_NS = 1.0 / 60.0 * 1000000000
 gfx_context* gfx_debug_ctx = nullptr;
 gfx_context* gfx_render_ctx = nullptr;
 
 void core_init_gfx_contexts();
 void core_on_key_press(SDL_Scancode sym, bool down);
+void core_sleep_until(std::chrono:high_resolution_clock::time_point target_time);
 
 uint32_t core_clock_counter = 0;
 bool core_quit_requested = false;
+std::chrono::steady_clock::time_point core_frame_time_begin;
 
 int core_init()
 {
@@ -47,6 +52,8 @@ void core_run()
     memset(memory, 0, MEMORY_SIZE);
     cpu_reset();
     ppu_reset();
+
+    core_time_frame_begin = std::chrono::high_resolution_clock::new();
 
     while (!core_quit_requested) 
     {
@@ -90,6 +97,16 @@ void core_on_frame()
             core_quit_requested = true;
         }
     }
+
+    auto time_frame_end = std::chrono::high_resolution_clock::now();
+    auto time_elapsed = time_frame_end - core_time_frame_begin;
+    auto sleep_time = std::chrono::nanoseconds((CPU_FRAME_TIME_NS)-time_elapsed.count());
+    if (sleep_time.count() > 0)
+    {
+        std::chrono::high_resolution_clock::time_point end_of_sleep = time_frame_end + sleep_time
+        core_sleep_until(end_of_sleep);
+    }
+    core_time_frame_begin = std::chrono::high_resolution_clock::now();
 }
 
 void core_advance_cpu_clocks(uint8_t clocks)
@@ -154,5 +171,21 @@ void core_on_key_press(SDL_Scancode sym, bool down)
         break;
     default:
         break;
+    }
+}
+
+void core_sleep_until(std::chrono::high_resolution_clock::time_point target_time)
+{
+    auto now = std::chrono::high_resolution_clock::now();
+    auto buffer = std::chrono::milliseconds(2);
+
+    if (target_time - now > buffer)
+    {
+        std::this_thread::sleep_until(target_time - buffer);
+    }
+
+    while (std::chrono::high_resolution_clock::now() < target_time)
+    {
+        std::this_thread::yield();
     }
 }

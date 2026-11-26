@@ -18,5 +18,7 @@
 - [X] Debug
 - [ ] Cartridges
 - [ ] Memory Bank Controllers
-- [ ] PPU
-- [ ] D-Pad and Buttons
+- [X] PPU
+- [X] D-Pad and Buttons
+- [ ] Debug
+- [ ] APU
